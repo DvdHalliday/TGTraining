@@ -21,10 +21,10 @@ public:
 	Circle(float radius) {
 		m_radius = radius;
 	}
-	float GetArea() {
+	float GetArea() const{
 		return 3.14159265358979323846f *m_radius * m_radius;
 	}
-	float GetPerimeter() {
+	float GetPerimeter() const{
 		return 2.0f * 3.14159265358979323846f * m_radius;
 	}
 };
@@ -39,10 +39,10 @@ public:
 	Square(float sideLength) {
 		m_sideLength = sideLength;
 	}
-	float GetArea() {
+	float GetArea() const{
 		return m_sideLength * m_sideLength;
 	}
-	float GetPerimeter() {
+	float GetPerimeter() const{
 		return 4.0f * m_sideLength;
 	}
 };

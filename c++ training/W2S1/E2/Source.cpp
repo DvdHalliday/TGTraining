@@ -41,11 +41,11 @@ public:
 		m_minutes = minutes;
 	}
 
-	void Display() {
-		std::cout << addOptionalZero(m_hours) << m_hours << addOptionalZero(m_minutes) << m_minutes << std::endl;
+	void Display() const{
+		std::cout << GetZeroIfLowerThanTen(m_hours) << m_hours << GetZeroIfLowerThanTen(m_minutes) << m_minutes << std::endl;
 	}
 
-	std::string addOptionalZero(short input) {
+	std::string GetZeroIfLowerThanTen(short input) const {
 		std::string formattedString = "";
 		if (input < 10) formattedString += '0';
 		return formattedString;

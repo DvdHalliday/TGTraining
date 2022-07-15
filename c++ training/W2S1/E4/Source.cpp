@@ -26,10 +26,10 @@ public:
 	Printer(char outputString[]) {
 		Fill(outputString);
 	}
-	void Print() {
+	void Print() const{
 		std::cout << m_outputString << std::endl;
 	}
-	void PrintReversed() {
+	void PrintReversed() const{
 		char reversedString[60];
 		for (int i = 0; i < std::strlen(m_outputString); i++) {
 			reversedString[std::strlen(m_outputString) - i - 1] = m_outputString[i];
@@ -37,7 +37,7 @@ public:
 		reversedString[std::strlen(m_outputString)] = '\0';
 		std::cout << reversedString << std::endl;
 	}
-	void PrintSpaced(int spaces) {
+	void PrintSpaced(int spaces) const{
 		char spacing[10] = "";
 		for (int i = 0; i < spaces; i++) {
 			spacing[i] = ' ';
@@ -48,7 +48,7 @@ public:
 		}
 		std::cout << std::endl;
 	}
-	void PrintVertically() {
+	void PrintVertically() const{
 		for (int j = 0; j < std::strlen(m_outputString); j++) {
 			std::cout << m_outputString[j] << std::endl;
 		}
