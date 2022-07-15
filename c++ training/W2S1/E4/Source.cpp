@@ -14,17 +14,17 @@
 class Printer {
 private:
 	char m_outputString[60];
-	void Filler(const char newString[]) {
+	void Fill(const char newString[]) {
 		for (int i = 0; i < std::strlen(newString)+1; i++) {
 			m_outputString[i] = newString[i];
 		}
 	}
 public:
 	Printer() {
-		Filler("Hello!");
+		Fill("Hello!");
 	}
 	Printer(char outputString[]) {
-		Filler(outputString);
+		Fill(outputString);
 	}
 	void Print() {
 		std::cout << m_outputString << std::endl;

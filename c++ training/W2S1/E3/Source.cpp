@@ -25,7 +25,7 @@ public:
 		return 3.14159265358979323846f *m_radius * m_radius;
 	}
 	float GetPerimeter() {
-		return 2 * 3.14159265358979323846f * m_radius;
+		return 2.0f * 3.14159265358979323846f * m_radius;
 	}
 };
 
@@ -43,7 +43,7 @@ public:
 		return m_sideLength * m_sideLength;
 	}
 	float GetPerimeter() {
-		return 4 * m_sideLength;
+		return 4.0f * m_sideLength;
 	}
 };
 
