@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 //Exercise 2 - Military Clock
 //Create a class called MilitaryClock that stores and displays the military time.
@@ -42,14 +43,18 @@ public:
 	}
 
 	void Display() const{
-		std::cout << GetZeroIfLowerThanTen(m_hours) << m_hours << GetZeroIfLowerThanTen(m_minutes) << m_minutes << std::endl;
+		std::cout << GetAsFourDigitString() << std::endl;
 	}
 
-	std::string GetZeroIfLowerThanTen(short input) const {
+	std::string GetAsFourDigitString() const{
 		std::string formattedString = "";
-		if (input < 10) formattedString += '0';
+		if (m_hours < 10) formattedString += '0';
+		formattedString += std::to_string(m_hours);
+		if (m_minutes < 10) formattedString += '0';
+		formattedString += std::to_string(m_minutes);
 		return formattedString;
 	}
+
 };
 
 int main() {
