@@ -27,6 +27,7 @@ private:
 	MenuCommand m_activeCommand;
 	void openMainMenu();
 	void openCreatePlaylistMenu();
+	void openBrowsePlaylists();
 public:
 	Spotify();
 	void runApp();
