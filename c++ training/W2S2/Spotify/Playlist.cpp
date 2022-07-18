@@ -40,6 +40,6 @@ void Playlist::displayPlaylist() const
 	std::cout << "Song Title\t\tArtist Name\t\tDuration" << std::endl;
 	std::cout << "-----------------------------------------------------------------------" << std::endl;
 	for (int i = 0; i < m_songCount; i++) {
-		std::cout << m_songs[i].getSongTitle() << "\t\t" << m_songs[i].getArtistName() << "\t\t" << m_songs[i].getDuration() << std::endl;
+		std::cout << m_songs[i].getSongTitle() << "\t\t" << m_songs[i].getArtistName() << "\t\t" << m_songs[i].getFormattedDuration() << std::endl;
 	}
 }

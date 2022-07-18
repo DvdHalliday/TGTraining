@@ -26,6 +26,7 @@ private:
 	enum class MenuCommand { MainMenu, CreatePlaylist, BrowsePlaylists, Exit };
 	MenuCommand m_activeCommand;
 	void openMainMenu();
+	void openCreatePlaylistMenu();
 public:
 	Spotify();
 	void runApp();
