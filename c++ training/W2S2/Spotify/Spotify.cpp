@@ -1,4 +1,5 @@
 #include "Spotify.h" 
+#include <string>
 
 //Exercise 4.2 - Create a Playlist Menu
 //With the main menu done, it’s time to create the create - a - playlist menu.You should have the following private methods:
@@ -45,22 +46,21 @@ void Spotify::openMainMenu()
 void Spotify::openCreatePlaylistMenu()
 {
 	system("cls");
+	std::cin.clear();
+	std::cin.ignore(INT_MAX, '\n');
 	std::cout << "Please enter a name for the playlist: ";
 	std::string playlistName;
-	std::cin >> playlistName;
+	std::getline(std::cin,playlistName);
+	//std::cin >> playlistName;
 	Playlist newPlaylist = Playlist(playlistName);
 	while (true) {
 		system("cls");
 		std::cout << "Let's add a song to " << playlistName << "!\nPlease enter the song title: ";
 		std::string songName;
-		std::cin >> songName;
-		std::cin.clear();
-		std::cin.ignore(INT_MAX, '\n');
+		std::getline(std::cin, songName);
 		std::cout << "Please enter the artist name: ";
 		std::string songArtist;
-		std::cin >> songArtist;
-		std::cin.clear();
-		std::cin.ignore(INT_MAX, '\n');
+		std::getline(std::cin, songArtist);
 		std::cout << "Please enter the duration of the song: ";
 		float songDuration;
 		std::cin >> songDuration;
