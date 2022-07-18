@@ -6,13 +6,13 @@ Playlist::Playlist()
 	m_songCount = 0;
 }
 
-Playlist::Playlist(std::string playlistTitle)
+Playlist::Playlist(const std::string playlistTitle)
 {
 	setPlaylistTitle(playlistTitle);
 	m_songCount = 0;
 }
 
-void Playlist::setPlaylistTitle(std::string playlistTitle)
+void Playlist::setPlaylistTitle(const std::string playlistTitle)
 {
 	m_playlistTitle = playlistTitle;
 }
@@ -22,7 +22,7 @@ std::string Playlist::getPlaylistName() const
 	return m_playlistTitle;
 }
 
-bool Playlist::addSong(Song song)
+bool Playlist::addSong(const Song song)
 {
 	if (m_songCount == m_MaxSongCount || !song.isValid()) return false;
 	m_songs[m_songCount] = song;
@@ -30,7 +30,7 @@ bool Playlist::addSong(Song song)
 	return true;
 }
 
-Song Playlist::getSong(int songIndex) const
+Song Playlist::getSong(const int songIndex) const
 {
 	return m_songs[songIndex];
 }

@@ -24,7 +24,7 @@ private:
 	int m_playlistCount;
 public:
 	PlaylistContainer();
-	void addPlaylist(Playlist playlist);
-	Playlist getPlaylist(int playlistIndex) const;
+	void addPlaylist(const Playlist playlist);
+	Playlist getPlaylist(const int playlistIndex) const;
 	int getPlayListCount() const;
 };

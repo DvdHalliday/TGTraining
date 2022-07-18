@@ -24,13 +24,13 @@ private:
 	int m_duration;
 public:
 	Song();
-	Song(std::string songTitle, std::string artistName, int duration);
+	Song(const std::string songTitle, const std::string artistName, const int duration);
 	std::string getSongTitle() const;
 	std::string getArtistName() const;
 	int getDuration() const;
-	void setSongTitle(std::string songTitle);
-	void setArtistName(std::string artistName) ;
-	void setDuration(int duration) ;
+	void setSongTitle(const std::string songTitle);
+	void setArtistName(const std::string artistName) ;
+	void setDuration(const int duration) ;
 	std::string getFormattedDuration() const;
 	bool isValid() const;
 };

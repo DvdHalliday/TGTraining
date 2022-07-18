@@ -26,10 +26,10 @@ private:
 	int m_songCount;
 public:
 	Playlist();
-	Playlist(std::string playlistTitle);
-	void setPlaylistTitle(std::string playlistTitle);
+	Playlist(const std::string playlistTitle);
+	void setPlaylistTitle(const std::string playlistTitle);
 	std::string getPlaylistName() const;
-	bool addSong(Song song);
-	Song getSong(int songIndex) const;
+	bool addSong(const Song song);
+	Song getSong(const int songIndex) const;
 	void displayPlaylist() const;
 };
