@@ -1,3 +1,5 @@
 ![Project Image](tg.jpg)
-# TGTraining
- Teravision Games's Programming Internship repository 
+# Teravision Games Training repository
+##David Halliday
+###Computer Science Student
+####Programming Internship
