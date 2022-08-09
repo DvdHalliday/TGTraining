@@ -14,9 +14,9 @@ void FCategory::AddGame(FVideogame Videogame)
 	Games[CurrentNumberOfGames++] = Videogame;
 }
 
-bool FCategory::CanAddGame() const
+bool FCategory::IsFull() const
 {
-	return CurrentNumberOfGames < MaxGamesAmount;
+	return CurrentNumberOfGames >= MaxGamesAmount;
 }
 
 std::string FCategory::GetName() const

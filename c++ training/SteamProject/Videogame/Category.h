@@ -14,7 +14,7 @@ public:
 	FCategory(std::string Name);
 
 	void AddGame(FVideogame Videogame);
-	bool CanAddGame() const;
+	bool IsFull() const;
 
 	std::string GetName() const;
 	FVideogame GetGame(int Index) const;
