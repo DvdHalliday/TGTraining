@@ -30,7 +30,7 @@ bool FCategoryContainer::RemoveCategory(int Index)
 	{
 		return false;
 	}
-	for (int i = Index; i < CurrentNumberOfCategories; i++)
+	for (int i = Index; i < CurrentNumberOfCategories && i < MaxCategoriesAmount-1; i++)
 	{
 		Categories[i] = Categories[i + 1];
 	}
