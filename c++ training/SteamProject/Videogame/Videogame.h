@@ -13,5 +13,8 @@ public:
 	FVideogame(std::string Name, std::string Studio, FDate Date);
 
 	bool IsValid() const;
+
 	std::string GetFormattedDate() const;
+	std::string GetName() const;
+	std::string GetStudio() const;
 };

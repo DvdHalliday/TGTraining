@@ -20,3 +20,13 @@ std::string FVideogame::GetFormattedDate() const
 {
 	return Date.ToFormattedString();
 }
+
+std::string FVideogame::GetName() const
+{
+	return Name;
+}
+
+std::string FVideogame::GetStudio() const
+{
+	return Studio;
+}
