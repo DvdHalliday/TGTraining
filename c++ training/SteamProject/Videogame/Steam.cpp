@@ -76,7 +76,7 @@ void FSteam::OpenAddGamesMenu()
 
 	switch (Month)
 	{
-	// Case for february
+		// Case for february
 	case 2:
 		if (Year % 4 == 0 && Year != 1900)
 		{
@@ -87,7 +87,7 @@ void FSteam::OpenAddGamesMenu()
 			Day = ValidateInputAndReturnValidatedInput(TemporalDay, "Please insert the actual day the game was published: ", 1, 28);
 		}
 		break;
-	// Cases of months that have 31 days
+		// Cases of months that have 31 days
 	case 1:
 	case 3:
 	case 5:
@@ -97,7 +97,7 @@ void FSteam::OpenAddGamesMenu()
 	case 12:
 		Day = ValidateInputAndReturnValidatedInput(TemporalDay, "Please insert the actual day the game was published: ", 1, 31);
 		break;
-	// Cases of months that have 30 days
+		// Cases of months that have 30 days
 	case 4:
 	case 6:
 	case 9:
@@ -107,7 +107,7 @@ void FSteam::OpenAddGamesMenu()
 	default:
 		"AddGame Date Error, please contact support";
 	}
-	
+
 	FVideogame Game = FVideogame(GameName, GameStudio, FDate(Day, Month, Year));
 
 	if (CategoryIndex == -1)
@@ -120,6 +120,127 @@ void FSteam::OpenAddGamesMenu()
 	}
 
 	ActiveCommand = MenuCommand::MainMenu;
+}
+
+void FSteam::OpenCategoryManagerMenu()
+{
+	system("cls");
+	std::string CategoryManagerMessage = "What would you rather do next? \n1 - Add a new category\n2 - Remove a category\n3 - Go back to main menu\nTELL ME : ";
+	std::cout << CategoryManagerMessage;
+
+	enum class CategoryManagerCommand { CreateCategory = 1, RemoveCategory, MainMenu };
+	CategoryManagerCommand UserChoice;
+
+	float TemporalUserChoice;
+	std::cin >> TemporalUserChoice;
+
+	UserChoice = (CategoryManagerCommand)ValidateInputAndReturnValidatedInput(TemporalUserChoice, CategoryManagerMessage, 1, 3);
+
+	switch (UserChoice)
+	{
+	case CategoryManagerCommand::CreateCategory:
+		OpenCreateCategory();
+		break;
+
+	case CategoryManagerCommand::RemoveCategory:
+		OpenRemoveCategory();
+		break;
+
+	case CategoryManagerCommand::MainMenu:
+		ActiveCommand = MenuCommand::MainMenu;
+		return;
+
+	default:
+		std::cout << "CategoryManager Error, please contact support";
+	}
+}
+
+void FSteam::OpenCreateCategory()
+{
+	system("cls");
+
+	if (CategoryContainer.IsFull())
+	{
+		std::cout << "There is no available space right now to create another category, please type Enter to return to the previous menu";
+
+		std::cin.ignore(500, '\n');
+		if (std::cin.peek() == '\n')
+		{
+			OpenCategoryManagerMenu();
+		}
+		return;
+	}
+
+	std::cout << "Please enter a name for the new category: ";
+	std::string TemporaryCategoryName;
+	std::cin >> TemporaryCategoryName;
+
+	std::string CategoryName = ValidateInputAndReturnValidatedInput(TemporaryCategoryName, "Please enter a valid name for the new category: ");
+	FCategory Category = FCategory(CategoryName);
+
+	CategoryContainer.AddCategory(Category);
+
+	system("cls");
+
+	std::cout << "Category created succesfuly. Please type Enter to return to the previous menu";
+
+	std::cin.ignore(500, '\n');
+	if (std::cin.peek() == '\n')
+	{
+		OpenCategoryManagerMenu();
+	}
+	return;
+}
+
+void FSteam::OpenRemoveCategory()
+{
+	system("cls");
+
+	if (CategoryContainer.IsEmpty())
+	{
+		std::cout << "There is currently no category. Please type Enter to return to the previous menu";
+
+		std::cin.ignore(500, '\n');
+		if (std::cin.peek() == '\n')
+		{
+			OpenCategoryManagerMenu();
+		}
+		return;
+
+	}
+
+	std::cout << "Choose one of the following options or categories to remove:\n" << std::endl << "0 - Don't remove any category, return to the previous menu" << std::endl;
+	for (int i = 1; i <= CategoryContainer.GetCurrentNumberOfCategories(); i++)
+	{
+		std::cout << i << " - " << CategoryContainer.GetCategory(i).GetName() << std::endl;
+	}
+
+	std::cout << "\nPlease enter your choice: ";
+
+	float TemporalUserChoice;
+	std::cin >> TemporalUserChoice;
+
+	int UserChoice = ValidateInputAndReturnValidatedInput(TemporalUserChoice, "Please enter a valid choice : ", 0, CategoryContainer.GetCurrentNumberOfCategories());
+
+	if (UserChoice == 0)
+	{
+		OpenCategoryManagerMenu();
+		return;
+	}
+
+	CategoryContainer.RemoveCategory(UserChoice - 1);
+
+	system("cls");
+
+
+	std::cout << "Category removed succesfully. Please type Enter to return to the previous menu ";
+
+	std::cin.ignore(500, '\n');
+	if (std::cin.peek() == '\n')
+	{
+		OpenCategoryManagerMenu();
+	}
+	return;
 }
 
 
@@ -200,7 +321,7 @@ int FSteam::ValidateInputAndReturnValidatedInput(float Input, std::string Messag
 
 std::string FSteam::ValidateInputAndReturnValidatedInput(std::string StringInput, std::string Message)
 {
-	while (!std::cin.good() || StringInput == "" || StringInput == "\n")
+	while (!std::cin.good() || StringInput == "")
 	{
 		ResetConsoleInputScreen();
 
@@ -239,7 +360,8 @@ void FSteam::RunSteam()
 			break;
 
 		case MenuCommand::CategoryManagerMenu:
-			//OpenCategoryManagerMenu();
+			OpenCategoryManagerMenu();
+			break;
 
 		case MenuCommand::GameDisplayerMenu:
 			//OpenGameDisplayerMenu();

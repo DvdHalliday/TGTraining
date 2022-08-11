@@ -33,6 +33,8 @@ private:
 	int ChooseCategory();
 	bool AskChooseCategory();
 
+	void OpenCreateCategory();
+	void OpenRemoveCategory();
 
 public:
 	FSteam();
