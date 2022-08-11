@@ -9,9 +9,9 @@ private:
 	int Year;
 public:
 	FDate();
-	FDate(int Day, int Month, int Year);
+	FDate(const int Day, const int Month, const int Year);
 
-	void SetDate(int Day, int Month, int Year);
+	void SetDate(const int Day, const int Month, const int Year);
 
 	int GetDay() const;
 	int GetMonth() const;

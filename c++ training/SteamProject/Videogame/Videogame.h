@@ -10,7 +10,7 @@ private:
 
 public:
 	FVideogame();
-	FVideogame(std::string Name, std::string Studio, FDate Date);
+	FVideogame(const std::string Name, const std::string Studio, const FDate Date);
 
 	bool IsValid() const;
 
