@@ -1,6 +1,6 @@
 #include "Steam.h"
-
-void FSteam::OpenMainManu()
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void FSteam::OpenMainMenu()
 {
 	system("cls");
 
@@ -37,12 +37,14 @@ void FSteam::OpenMainManu()
 		std::cout << "MainMenu Error, please contact support";
 	}
 }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void FSteam::OpenAddGamesMenu()
 {
 	system("cls");
+
 	// CategoryIndex is set to -1 and that value is representing the uncategorized category
 	int CategoryIndex = -1;
+
 	if (!CategoryContainer.IsEmpty())
 	{
 		CategoryIndex = ChooseCategory();
@@ -72,41 +74,7 @@ void FSteam::OpenAddGamesMenu()
 	float TemporalDay;
 	std::cout << "Please insert the day the game was published: ";
 	std::cin >> TemporalDay;
-	int Day;
-
-	switch (Month)
-	{
-		// Case for february
-	case 2:
-		if (Year % 4 == 0 && Year != 1900)
-		{
-			Day = ValidateInputAndReturnValidatedInput(TemporalDay, "Please insert the actual day the game was published: ", 1, 29);
-		}
-		else
-		{
-			Day = ValidateInputAndReturnValidatedInput(TemporalDay, "Please insert the actual day the game was published: ", 1, 28);
-		}
-		break;
-		// Cases of months that have 31 days
-	case 1:
-	case 3:
-	case 5:
-	case 7:
-	case 8:
-	case 10:
-	case 12:
-		Day = ValidateInputAndReturnValidatedInput(TemporalDay, "Please insert the actual day the game was published: ", 1, 31);
-		break;
-		// Cases of months that have 30 days
-	case 4:
-	case 6:
-	case 9:
-	case 11:
-		Day = ValidateInputAndReturnValidatedInput(TemporalDay, "Please insert the actual day the game was published: ", 1, 30);
-		break;
-	default:
-		"AddGame Date Error, please contact support";
-	}
+	int Day = GetValidDay(TemporalDay, Month, Year);
 
 	FVideogame Game = FVideogame(GameName, GameStudio, FDate(Day, Month, Year));
 
@@ -114,14 +82,17 @@ void FSteam::OpenAddGamesMenu()
 	{
 		Uncategorized.AddGame(Game);
 	}
+
 	else
 	{
 		CategoryContainer.GetCategory(CategoryIndex).AddGame(Game);
 	}
 
+	NumberOfGames++;
+
 	ActiveCommand = MenuCommand::MainMenu;
 }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void FSteam::OpenCategoryManagerMenu()
 {
 	system("cls");
@@ -154,7 +125,58 @@ void FSteam::OpenCategoryManagerMenu()
 		std::cout << "CategoryManager Error, please contact support";
 	}
 }
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void FSteam::OpenGameDisplayerMenu() {
+	system("cls");
 
+	if (NumberOfGames == 0)
+	{
+		std::cout << "There are currently no games to display. Please type Enter to return to the main menu. ";
+
+		std::cin.ignore(500, '\n');
+		if (std::cin.peek() == '\n')
+		{
+			OpenMainMenu();
+		}
+		return;
+	}
+
+	if (Uncategorized.GetCurrentNumberOfGames() != 0)
+	{
+		std::cout << "---------------------------------------------------------\n" << "Uncategorized Games\n" << std::endl;
+		for (int i = 0; i < Uncategorized.GetCurrentNumberOfGames(); i++)
+		{
+			FVideogame Game = Uncategorized.GetGame(i);
+			std::cout << Game.GetName() << "\t by " << Game.GetStudio() << "\t published on " << Game.GetFormattedDate() << std::endl;
+		}
+	}
+
+	if (!CategoryContainer.IsEmpty())
+	{
+		for (int i = 0; i < CategoryContainer.GetCurrentNumberOfCategories(); i++)
+		{
+			if (CategoryContainer.GetCategory(i).GetCurrentNumberOfGames() != 0)
+			{
+				std::cout << "---------------------------------------------------------\n" << CategoryContainer.GetCategory(i).GetName() << " Games\n" << std::endl;
+
+				for (int j = 0; j < CategoryContainer.GetCategory(i).GetCurrentNumberOfGames(); j++)
+				{
+					FVideogame Game = Uncategorized.GetGame(j);
+					std::cout << Game.GetName() << "\t by " << Game.GetStudio() << "\t published on " << Game.GetFormattedDate() << std::endl;
+				}
+			}
+		}
+	}
+
+	std::cout << "\nPlease type Enter to return to the previous menu ";
+
+	std::cin.ignore(500, '\n');
+	if (std::cin.peek() == '\n')
+	{
+		OpenMainMenu();
+	}
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void FSteam::OpenCreateCategory()
 {
 	system("cls");
@@ -191,7 +213,7 @@ void FSteam::OpenCreateCategory()
 	}
 	return;
 }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void FSteam::OpenRemoveCategory()
 {
 	system("cls");
@@ -242,8 +264,7 @@ void FSteam::OpenRemoveCategory()
 	}
 	return;
 }
-
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int FSteam::ChooseCategory()
 {
 	if (!AskChooseCategory())
@@ -265,10 +286,9 @@ int FSteam::ChooseCategory()
 	float TemporalUserChoice;
 	std::cin >> TemporalUserChoice;
 
-	return ValidateInputAndReturnValidatedInput(TemporalUserChoice, "TELL ME A VALID OPTION: ", 1, CategoryContainer.GetCurrentNumberOfCategories());
+	return ValidateInputAndReturnValidatedInput(TemporalUserChoice, "TELL ME A VALID OPTION: ", 1, CategoryContainer.GetCurrentNumberOfCategories()) - 1;
 }
-
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool FSteam::AskChooseCategory()
 {
 	system("cls");
@@ -296,17 +316,17 @@ bool FSteam::AskChooseCategory()
 		return false;
 	}
 }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool FSteam::IsInteger(float Float) const
 {
 	return (Float - floor(Float)) == 0.f;
 }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool FSteam::IsInRange(float Value, int LowerBound, int UpperBound) const
 {
 	return Value >= LowerBound && Value <= UpperBound;
 }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int FSteam::ValidateInputAndReturnValidatedInput(float Input, std::string Message, int LowerBound, int UpperBound)
 {
 	while (!std::cin.good() || !IsInteger(Input) || !IsInRange(Input, LowerBound, UpperBound))
@@ -318,7 +338,7 @@ int FSteam::ValidateInputAndReturnValidatedInput(float Input, std::string Messag
 	}
 	return (int)Input;
 }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 std::string FSteam::ValidateInputAndReturnValidatedInput(std::string StringInput, std::string Message)
 {
 	while (!std::cin.good() || StringInput == "")
@@ -330,7 +350,45 @@ std::string FSteam::ValidateInputAndReturnValidatedInput(std::string StringInput
 	}
 	return StringInput;
 }
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+int FSteam::GetValidDay(float TemporalDay, int Month, int Year)
+{
+	switch (Month)
+	{
+		// Case for february
+	case 2:
+		if (Year % 4 == 0 && Year != 1900)
+		{
+			return ValidateInputAndReturnValidatedInput(TemporalDay, "Please insert the actual day the game was published: ", 1, 29);
+		}
+		else
+		{
+			return ValidateInputAndReturnValidatedInput(TemporalDay, "Please insert the actual day the game was published: ", 1, 28);
+		}
 
+		// Cases of months that have 31 days
+	case 1:
+	case 3:
+	case 5:
+	case 7:
+	case 8:
+	case 10:
+	case 12:
+		return ValidateInputAndReturnValidatedInput(TemporalDay, "Please insert the actual day the game was published: ", 1, 31);
+
+		// Cases of months that have 30 days
+	case 4:
+	case 6:
+	case 9:
+	case 11:
+		return ValidateInputAndReturnValidatedInput(TemporalDay, "Please insert the actual day the game was published: ", 1, 30);
+
+	default:
+		"AddGame Date Error, please contact support";
+		return 1;
+	}
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void FSteam::ResetConsoleInputScreen()
 {
 	std::cin.clear();
@@ -338,13 +396,11 @@ void FSteam::ResetConsoleInputScreen()
 
 	system("cls");
 }
-
-
-FSteam::FSteam()
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+FSteam::FSteam() : ActiveCommand(MenuCommand::MainMenu), NumberOfGames(0)
 {
-	ActiveCommand = MenuCommand::MainMenu;
 }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void FSteam::RunSteam()
 {
 	while (true)
@@ -352,7 +408,7 @@ void FSteam::RunSteam()
 		switch (ActiveCommand)
 		{
 		case MenuCommand::MainMenu:
-			OpenMainManu();
+			OpenMainMenu();
 			break;
 
 		case MenuCommand::AddGamesMenu:
@@ -364,7 +420,7 @@ void FSteam::RunSteam()
 			break;
 
 		case MenuCommand::GameDisplayerMenu:
-			//OpenGameDisplayerMenu();
+			OpenGameDisplayerMenu();
 			break;
 
 		case MenuCommand::Exit:

@@ -8,6 +8,8 @@ private:
 	FCategoryContainer CategoryContainer;
 	FCategory Uncategorized = FCategory("Uncategorized");
 
+	int NumberOfGames;
+
 	enum class MenuCommand
 	{
 		MainMenu = 1,
@@ -18,7 +20,7 @@ private:
 	};
 	MenuCommand ActiveCommand;
 	
-	void OpenMainManu();
+	void OpenMainMenu();
 	void OpenAddGamesMenu();
 	void OpenCategoryManagerMenu();
 	void OpenGameDisplayerMenu();
@@ -32,6 +34,8 @@ private:
 
 	int ChooseCategory();
 	bool AskChooseCategory();
+
+	int GetValidDay(float TemporalDay, int Month, int Year);
 
 	void OpenCreateCategory();
 	void OpenRemoveCategory();
