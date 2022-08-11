@@ -1,19 +1,20 @@
 #include "CategoryContainer.h"
 
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 FCategoryContainer::FCategoryContainer() : CurrentNumberOfCategories(0)
 {
 }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool FCategoryContainer::IsFull() const
 {
 	return CurrentNumberOfCategories >= MaxCategoriesAmount;
 }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool FCategoryContainer::IsEmpty() const
 {
 	return CurrentNumberOfCategories == 0;
 }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool FCategoryContainer::AddCategory(FCategory Category)
 {
 	if (!IsFull())
@@ -23,7 +24,7 @@ bool FCategoryContainer::AddCategory(FCategory Category)
 	}
 	return false;
 }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool FCategoryContainer::RemoveCategory(int Index)
 {
 	if (IsEmpty())
@@ -37,7 +38,7 @@ bool FCategoryContainer::RemoveCategory(int Index)
 	CurrentNumberOfCategories--;
 	return true;
 }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 FCategory FCategoryContainer::GetCategory(int Index) const
 {
 	if (Index >= 0 && Index < CurrentNumberOfCategories)
@@ -46,7 +47,12 @@ FCategory FCategoryContainer::GetCategory(int Index) const
 	}
 	return FCategory();
 }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void FCategoryContainer::AddGameToCategory(const int CategoryIndex, const FVideogame Game)
+{
+	Categories[CategoryIndex].AddGame(Game);
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int FCategoryContainer::GetCurrentNumberOfCategories() const
 {
 	return CurrentNumberOfCategories;

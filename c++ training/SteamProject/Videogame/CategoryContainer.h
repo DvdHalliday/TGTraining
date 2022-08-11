@@ -13,9 +13,11 @@ public:
 	bool IsFull() const;
 	bool IsEmpty() const;
 
-	bool AddCategory(FCategory Category);
-	bool RemoveCategory(int Index);
+	bool AddCategory(const FCategory Category);
+	bool RemoveCategory(const int Index);
 
-	FCategory GetCategory(int Index) const;
+	void AddGameToCategory(const int CategoryIndex, const FVideogame Game);
+
+	FCategory GetCategory(const int Index) const;
 	int GetCurrentNumberOfCategories() const;
 };

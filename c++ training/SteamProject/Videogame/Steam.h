@@ -25,17 +25,17 @@ private:
 	void OpenCategoryManagerMenu();
 	void OpenGameDisplayerMenu();
 
-	bool IsInteger(float Float) const;
-	bool IsInRange(float Value, int LowerBound, int UpperBound) const;
-	int ValidateInputAndReturnValidatedInput(float FirstInput, std::string Message, int LowerBound, int UpperBound);
-	std::string ValidateInputAndReturnValidatedInput(std::string StringInput, std::string Message);
+	bool IsInteger(const float Float) const;
+	bool IsInRange(const float Value, const int LowerBound, const int UpperBound) const;
+	int ValidateInputAndReturnValidatedInput(float FirstInput, const std::string Message, const int LowerBound, const int UpperBound);
+	std::string ValidateInputAndReturnValidatedInput(std::string StringInput, const std::string Message);
 
 	void ResetConsoleInputScreen();
 
 	int ChooseCategory();
 	bool AskChooseCategory();
 
-	int GetValidDay(float TemporalDay, int Month, int Year);
+	int GetValidDay(float TemporalDay, const int Month, const int Year);
 
 	void OpenCreateCategory();
 	void OpenRemoveCategory();

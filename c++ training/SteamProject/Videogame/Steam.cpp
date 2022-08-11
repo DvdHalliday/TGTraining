@@ -4,7 +4,7 @@ void FSteam::OpenMainMenu()
 {
 	system("cls");
 
-	std::string MainMenuMessage = "Welcome to the Steam store! What would you like to do? \n1 - Add a game\n2 - Modify or create game categories \n3 - View all games \n4 - Exit \nTELL ME: ";
+	const std::string MainMenuMessage = "Welcome to the Steam store! What would you like to do? \n1 - Add a game\n2 - Modify or create game categories \n3 - View all games \n4 - Exit \nTELL ME: ";
 	std::cout << MainMenuMessage;
 
 	enum class MainMenuCommand { AddGameMenu = 1, CategoryManagerMenu, GameDisplayerMenu, Exit };
@@ -59,12 +59,12 @@ void FSteam::OpenAddGamesMenu()
 	std::string GameStudio;
 	std::cout << "Please insert the name of the game studio: ";
 	std::cin >> GameStudio;
-	GameName = ValidateInputAndReturnValidatedInput(GameName, "Please insert a valid name for the game studio: ");
+	GameStudio = ValidateInputAndReturnValidatedInput(GameStudio, "Please insert a valid name for the game studio: ");
 
 	float TemporalYear;
 	std::cout << "Please insert the year the game was published: ";
 	std::cin >> TemporalYear;
-	int Year = ValidateInputAndReturnValidatedInput(TemporalYear, "Please insert the actual year the game was published: ", 1900, 2022);
+	const int Year = ValidateInputAndReturnValidatedInput(TemporalYear, "Please insert the actual year the game was published: ", 1900, 2022);
 
 	float TemporalMonth;
 	std::cout << "Please insert the month the game was published (1-12): ";
@@ -85,7 +85,7 @@ void FSteam::OpenAddGamesMenu()
 
 	else
 	{
-		CategoryContainer.GetCategory(CategoryIndex).AddGame(Game);
+		CategoryContainer.AddGameToCategory(CategoryIndex, Game);
 	}
 
 	NumberOfGames++;
@@ -161,7 +161,7 @@ void FSteam::OpenGameDisplayerMenu() {
 
 				for (int j = 0; j < CategoryContainer.GetCategory(i).GetCurrentNumberOfGames(); j++)
 				{
-					FVideogame Game = Uncategorized.GetGame(j);
+					FVideogame Game = CategoryContainer.GetCategory(i).GetGame(j);
 					std::cout << Game.GetName() << "\t by " << Game.GetStudio() << "\t published on " << Game.GetFormattedDate() << std::endl;
 				}
 			}
@@ -198,7 +198,7 @@ void FSteam::OpenCreateCategory()
 	std::cin >> TemporaryCategoryName;
 
 	std::string CategoryName = ValidateInputAndReturnValidatedInput(TemporaryCategoryName, "Please enter a valid name for the new category: ");
-	FCategory Category = FCategory(CategoryName);
+	FCategory Category(CategoryName);
 
 	CategoryContainer.AddCategory(Category);
 
@@ -234,7 +234,7 @@ void FSteam::OpenRemoveCategory()
 	std::cout << "Choose one of the following options or categories to remove:\n" << std::endl << "0 - Don't remove any category, return to the previous menu" << std::endl;
 	for (int i = 1; i <= CategoryContainer.GetCurrentNumberOfCategories(); i++)
 	{
-		std::cout << i << " - " << CategoryContainer.GetCategory(i).GetName() << std::endl;
+		std::cout << i << " - " << CategoryContainer.GetCategory(i-1).GetName() << std::endl;
 	}
 
 	std::cout << "\nPlease enter your choice: ";
