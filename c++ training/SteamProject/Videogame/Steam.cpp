@@ -7,30 +7,30 @@ void FSteam::OpenMainMenu()
 	const std::string MainMenuMessage = "Welcome to the Steam store! What would you like to do? \n1 - Add a game\n2 - Modify or create game categories \n3 - View all games \n4 - Exit \nTELL ME: ";
 	std::cout << MainMenuMessage;
 
-	enum class MainMenuCommand { AddGameMenu = 1, CategoryManagerMenu, GameDisplayerMenu, Exit };
-	MainMenuCommand UserChoice;
+	enum class EMainMenuCommand { AddGameMenu = 1, CategoryManagerMenu, GameDisplayerMenu, Exit };
+	EMainMenuCommand UserChoice;
 
 	float TemporalUserChoice;
 	std::cin >> TemporalUserChoice;
 
-	UserChoice = (MainMenuCommand)ValidateInputAndReturnValidatedInput(TemporalUserChoice, MainMenuMessage, 1, 4);
+	UserChoice = (EMainMenuCommand)ValidateInputAndReturnValidatedInput(TemporalUserChoice, MainMenuMessage, 1, 4);
 
 	switch (UserChoice)
 	{
-	case MainMenuCommand::AddGameMenu:
-		ActiveCommand = MenuCommand::AddGamesMenu;
+	case EMainMenuCommand::AddGameMenu:
+		ActiveCommand = EMenuCommand::AddGamesMenu;
 		break;
 
-	case MainMenuCommand::CategoryManagerMenu:
-		ActiveCommand = MenuCommand::CategoryManagerMenu;
+	case EMainMenuCommand::CategoryManagerMenu:
+		ActiveCommand = EMenuCommand::CategoryManagerMenu;
 		break;
 
-	case MainMenuCommand::GameDisplayerMenu:
-		ActiveCommand = MenuCommand::GameDisplayerMenu;
+	case EMainMenuCommand::GameDisplayerMenu:
+		ActiveCommand = EMenuCommand::GameDisplayerMenu;
 		break;
 
-	case MainMenuCommand::Exit:
-		ActiveCommand = MenuCommand::Exit;
+	case EMainMenuCommand::Exit:
+		ActiveCommand = EMenuCommand::Exit;
 		break;
 
 	default:
@@ -90,7 +90,7 @@ void FSteam::OpenAddGamesMenu()
 
 	NumberOfGames++;
 
-	ActiveCommand = MenuCommand::MainMenu;
+	ActiveCommand = EMenuCommand::MainMenu;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void FSteam::OpenCategoryManagerMenu()
@@ -99,26 +99,26 @@ void FSteam::OpenCategoryManagerMenu()
 	std::string CategoryManagerMessage = "What would you rather do next? \n1 - Add a new category\n2 - Remove a category\n3 - Go back to main menu\nTELL ME : ";
 	std::cout << CategoryManagerMessage;
 
-	enum class CategoryManagerCommand { CreateCategory = 1, RemoveCategory, MainMenu };
-	CategoryManagerCommand UserChoice;
+	enum class ECategoryManagerCommand { CreateCategory = 1, RemoveCategory, MainMenu };
+	ECategoryManagerCommand UserChoice;
 
 	float TemporalUserChoice;
 	std::cin >> TemporalUserChoice;
 
-	UserChoice = (CategoryManagerCommand)ValidateInputAndReturnValidatedInput(TemporalUserChoice, CategoryManagerMessage, 1, 3);
+	UserChoice = (ECategoryManagerCommand)ValidateInputAndReturnValidatedInput(TemporalUserChoice, CategoryManagerMessage, 1, 3);
 
 	switch (UserChoice)
 	{
-	case CategoryManagerCommand::CreateCategory:
+	case ECategoryManagerCommand::CreateCategory:
 		OpenCreateCategory();
 		break;
 
-	case CategoryManagerCommand::RemoveCategory:
+	case ECategoryManagerCommand::RemoveCategory:
 		OpenRemoveCategory();
 		break;
 
-	case CategoryManagerCommand::MainMenu:
-		ActiveCommand = MenuCommand::MainMenu;
+	case ECategoryManagerCommand::MainMenu:
+		ActiveCommand = EMenuCommand::MainMenu;
 		return;
 
 	default:
@@ -194,10 +194,10 @@ void FSteam::OpenCreateCategory()
 	}
 
 	std::cout << "Please enter a name for the new category: ";
-	std::string TemporaryCategoryName;
-	std::cin >> TemporaryCategoryName;
+	std::string TemporalCategoryName;
+	std::cin >> TemporalCategoryName;
 
-	std::string CategoryName = ValidateInputAndReturnValidatedInput(TemporaryCategoryName, "Please enter a valid name for the new category: ");
+	std::string CategoryName = ValidateInputAndReturnValidatedInput(TemporalCategoryName, "Please enter a valid name for the new category: ");
 	FCategory Category(CategoryName);
 
 	CategoryContainer.AddCategory(Category);
@@ -295,20 +295,20 @@ bool FSteam::AskChooseCategory()
 	std::string AskChooseCategoryMessage = "Would you like to choose a category for your new game? \n1 - Yes\n2 - No\nTELL ME : ";
 	std::cout << AskChooseCategoryMessage;
 
-	enum class QuestionCategoryCommand { Yes = 1, No };
-	QuestionCategoryCommand UserChoice;
+	enum class EQuestionCategoryCommand { Yes = 1, No };
+	EQuestionCategoryCommand UserChoice;
 
 	float TemporalUserChoice;
 	std::cin >> TemporalUserChoice;
 
-	UserChoice = (QuestionCategoryCommand)ValidateInputAndReturnValidatedInput(TemporalUserChoice, AskChooseCategoryMessage, 1, 2);
+	UserChoice = (EQuestionCategoryCommand)ValidateInputAndReturnValidatedInput(TemporalUserChoice, AskChooseCategoryMessage, 1, 2);
 
 	switch (UserChoice)
 	{
-	case QuestionCategoryCommand::Yes:
+	case EQuestionCategoryCommand::Yes:
 		return true;
 
-	case QuestionCategoryCommand::No:
+	case EQuestionCategoryCommand::No:
 		return false;
 
 	default:
@@ -397,7 +397,7 @@ void FSteam::ResetConsoleInputScreen()
 	system("cls");
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-FSteam::FSteam() : ActiveCommand(MenuCommand::MainMenu), NumberOfGames(0)
+FSteam::FSteam() : ActiveCommand(EMenuCommand::MainMenu), NumberOfGames(0)
 {
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -407,23 +407,23 @@ void FSteam::RunSteam()
 	{
 		switch (ActiveCommand)
 		{
-		case MenuCommand::MainMenu:
+		case EMenuCommand::MainMenu:
 			OpenMainMenu();
 			break;
 
-		case MenuCommand::AddGamesMenu:
+		case EMenuCommand::AddGamesMenu:
 			OpenAddGamesMenu();
 			break;
 
-		case MenuCommand::CategoryManagerMenu:
+		case EMenuCommand::CategoryManagerMenu:
 			OpenCategoryManagerMenu();
 			break;
 
-		case MenuCommand::GameDisplayerMenu:
+		case EMenuCommand::GameDisplayerMenu:
 			OpenGameDisplayerMenu();
 			break;
 
-		case MenuCommand::Exit:
+		case EMenuCommand::Exit:
 			return;
 
 		default:

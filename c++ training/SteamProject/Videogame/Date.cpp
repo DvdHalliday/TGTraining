@@ -1,14 +1,12 @@
 #include "Date.h"
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-FDate::FDate()
+FDate::FDate() : Day(1), Month(1), Year(2000)
 {
-	SetDate(1, 1, 2000);
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-FDate::FDate(int Day, int Month, int Year)
+FDate::FDate(const int NewDay, const int NewMonth, const int NewYear) : Day(NewDay), Month(NewMonth), Year(NewYear)
 {
-	SetDate(Day, Month, Year);
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void FDate::SetDate(int NewDay, int NewMonth, int NewYear)
@@ -35,6 +33,5 @@ int FDate::GetYear() const
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 std::string FDate::ToFormattedString() const
 {
-	const std::string ReturnString = std::to_string(GetDay()) + "/" + std::to_string(GetMonth()) + "/" + std::to_string(GetYear());
-	return ReturnString;
+	return std::to_string(GetDay()) + "/" + std::to_string(GetMonth()) + "/" + std::to_string(GetYear());;
 }

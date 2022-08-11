@@ -10,7 +10,7 @@ private:
 
 	int NumberOfGames;
 
-	enum class MenuCommand
+	enum class EMenuCommand
 	{
 		MainMenu = 1,
 		AddGamesMenu,
@@ -18,7 +18,7 @@ private:
 		GameDisplayerMenu,
 		Exit
 	};
-	MenuCommand ActiveCommand;
+	EMenuCommand ActiveCommand;
 	
 	void OpenMainMenu();
 	void OpenAddGamesMenu();

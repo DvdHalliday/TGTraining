@@ -9,7 +9,7 @@ private:
 	int Year;
 public:
 	FDate();
-	FDate(const int Day, const int Month, const int Year);
+	FDate(const int NewDay, const int NewMonth, const int NewYear);
 
 	void SetDate(const int Day, const int Month, const int Year);
 
