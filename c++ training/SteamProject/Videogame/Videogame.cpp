@@ -1,19 +1,12 @@
 #include "Videogame.h"
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-FVideogame::FVideogame() : Name(""), Studio(""), Date(FDate())
-{
-}
-//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-FVideogame::FVideogame(std::string NewName, std::string NewStudio, FDate NewDate) : Name(NewName), Studio(NewStudio), Date(NewDate)
+FVideogame::FVideogame(const std::string NewName, const std::string NewStudio, const FDate NewDate) : Name(NewName), Studio(NewStudio), Date(NewDate)
 {
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool FVideogame::IsValid() const
 {
-	const bool bIsValidDate = Date.GetDay() > 0 && Date.GetDay() < 32 &&
-		Date.GetMonth() > 0 && Date.GetMonth() < 13 &&
-		Date.GetYear() > 1900 && Date.GetDay() < 2023;
-	return (Name != "") && (Studio != "") && bIsValidDate;
+	return (!Name.empty()) && (!Studio.empty()) && Date.IsValid();
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 std::string FVideogame::GetFormattedDate() const

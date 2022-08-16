@@ -5,17 +5,10 @@ void FSteam::OpenMainMenu()
 	system("cls");
 
 	const std::string MainMenuMessage = "Welcome to the Steam store! What would you like to do? \n1 - Add a game\n2 - Modify or create game categories \n3 - View all games \n4 - Exit \nTELL ME: ";
-	std::cout << MainMenuMessage;
 
 	enum class EMainMenuCommand { AddGameMenu = 1, CategoryManagerMenu, GameDisplayerMenu, Exit };
-	EMainMenuCommand UserChoice;
 
-	float TemporalUserChoice;
-	std::cin >> TemporalUserChoice;
-
-	UserChoice = (EMainMenuCommand)ValidateInputAndReturnValidatedInput(TemporalUserChoice, MainMenuMessage, 1, 4);
-
-	switch (UserChoice)
+	switch ((EMainMenuCommand)GetValidatedInput(MainMenuMessage, 1, 4))
 	{
 	case EMainMenuCommand::AddGameMenu:
 		ActiveCommand = EMenuCommand::AddGamesMenu;
@@ -35,6 +28,7 @@ void FSteam::OpenMainMenu()
 
 	default:
 		std::cout << "MainMenu Error, please contact support";
+		break;
 	}
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -45,36 +39,18 @@ void FSteam::OpenAddGamesMenu()
 	// CategoryIndex is set to -1 and that value is representing the uncategorized category
 	int CategoryIndex = -1;
 
-	if (!CategoryContainer.IsEmpty())
-	{
-		CategoryIndex = ChooseCategory();
-		system("cls");
-	}
+	CategoryIndex = ChooseCategory();
+	system("cls");
 
-	std::string GameName;
-	std::cout << "Please insert the name of the game: ";
-	std::cin >> GameName;
-	GameName = ValidateInputAndReturnValidatedInput(GameName, "Please insert a valid name for the game: ");
+	std::string GameName = GetValidatedInput("Please insert the name of the game: ");
 
-	std::string GameStudio;
-	std::cout << "Please insert the name of the game studio: ";
-	std::cin >> GameStudio;
-	GameStudio = ValidateInputAndReturnValidatedInput(GameStudio, "Please insert a valid name for the game studio: ");
+	std::string GameStudio = GetValidatedInput("Please insert a valid name for the game studio: ");
 
-	float TemporalYear;
-	std::cout << "Please insert the year the game was published: ";
-	std::cin >> TemporalYear;
-	const int Year = ValidateInputAndReturnValidatedInput(TemporalYear, "Please insert the actual year the game was published: ", 1900, 2022);
+	const int Year = GetValidatedInput("Please insert the year the game was published: ", 1900, 2022);
 
-	float TemporalMonth;
-	std::cout << "Please insert the month the game was published (1-12): ";
-	std::cin >> TemporalMonth;
-	int Month = ValidateInputAndReturnValidatedInput(TemporalMonth, "Please insert the actual month the game was published (1-12): ", 1, 12);
+	int Month = GetValidatedInput("Please insert the month the game was published (1-12): ", 1, 12);
 
-	float TemporalDay;
-	std::cout << "Please insert the day the game was published: ";
-	std::cin >> TemporalDay;
-	int Day = GetValidDay(TemporalDay, Month, Year);
+	int Day = GetValidDay(Month, Year);
 
 	FVideogame Game = FVideogame(GameName, GameStudio, FDate(Day, Month, Year));
 
@@ -100,14 +76,8 @@ void FSteam::OpenCategoryManagerMenu()
 	std::cout << CategoryManagerMessage;
 
 	enum class ECategoryManagerCommand { CreateCategory = 1, RemoveCategory, MainMenu };
-	ECategoryManagerCommand UserChoice;
 
-	float TemporalUserChoice;
-	std::cin >> TemporalUserChoice;
-
-	UserChoice = (ECategoryManagerCommand)ValidateInputAndReturnValidatedInput(TemporalUserChoice, CategoryManagerMessage, 1, 3);
-
-	switch (UserChoice)
+	switch ((ECategoryManagerCommand)GetValidatedInput(CategoryManagerMessage, 1, 3))
 	{
 	case ECategoryManagerCommand::CreateCategory:
 		OpenCreateCategory();
@@ -133,11 +103,9 @@ void FSteam::OpenGameDisplayerMenu() {
 	{
 		std::cout << "There are currently no games to display. Please type Enter to return to the main menu. ";
 
-		std::cin.ignore(500, '\n');
-		if (std::cin.peek() == '\n')
-		{
-			OpenMainMenu();
-		}
+		RequestEnter();
+		ActiveCommand = EMenuCommand::MainMenu;
+
 		return;
 	}
 
@@ -151,29 +119,33 @@ void FSteam::OpenGameDisplayerMenu() {
 		}
 	}
 
-	if (!CategoryContainer.IsEmpty())
+	for (int i = 0; i < CategoryContainer.GetCurrentNumberOfCategories(); i++)
 	{
-		for (int i = 0; i < CategoryContainer.GetCurrentNumberOfCategories(); i++)
+		if (CategoryContainer.GetCategory(i).GetCurrentNumberOfGames() != 0)
 		{
-			if (CategoryContainer.GetCategory(i).GetCurrentNumberOfGames() != 0)
-			{
-				std::cout << "---------------------------------------------------------\n" << CategoryContainer.GetCategory(i).GetName() << " Games\n" << std::endl;
+			std::cout << "---------------------------------------------------------\n" << CategoryContainer.GetCategory(i).GetName() << " Games\n" << std::endl;
 
-				for (int j = 0; j < CategoryContainer.GetCategory(i).GetCurrentNumberOfGames(); j++)
-				{
-					FVideogame Game = CategoryContainer.GetCategory(i).GetGame(j);
-					std::cout << Game.GetName() << "\t by " << Game.GetStudio() << "\t published on " << Game.GetFormattedDate() << std::endl;
-				}
+			for (int j = 0; j < CategoryContainer.GetCategory(i).GetCurrentNumberOfGames(); j++)
+			{
+				FVideogame Game = CategoryContainer.GetCategory(i).GetGame(j);
+				std::cout << Game.GetName() << "\t by " << Game.GetStudio() << "\t published on " << Game.GetFormattedDate() << std::endl;
 			}
 		}
 	}
 
 	std::cout << "\nPlease type Enter to return to the previous menu ";
 
+	RequestEnter();
+
+	ActiveCommand = EMenuCommand::MainMenu;
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void FSteam::RequestEnter() const
+{
 	std::cin.ignore(500, '\n');
-	if (std::cin.peek() == '\n')
+
+	while (std::cin.get() != '\n')
 	{
-		OpenMainMenu();
 	}
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -185,19 +157,13 @@ void FSteam::OpenCreateCategory()
 	{
 		std::cout << "There is no available space right now to create another category, please type Enter to return to the previous menu";
 
-		std::cin.ignore(500, '\n');
-		if (std::cin.peek() == '\n')
-		{
-			OpenCategoryManagerMenu();
-		}
+		RequestEnter();
+		ActiveCommand = EMenuCommand::CategoryManagerMenu;
+
 		return;
 	}
 
-	std::cout << "Please enter a name for the new category: ";
-	std::string TemporalCategoryName;
-	std::cin >> TemporalCategoryName;
-
-	std::string CategoryName = ValidateInputAndReturnValidatedInput(TemporalCategoryName, "Please enter a valid name for the new category: ");
+	std::string CategoryName = GetValidatedInput("Please enter a name for the new category: ");
 	FCategory Category(CategoryName);
 
 	CategoryContainer.AddCategory(Category);
@@ -206,12 +172,8 @@ void FSteam::OpenCreateCategory()
 
 	std::cout << "Category created succesfuly. Please type Enter to return to the previous menu";
 
-	std::cin.ignore(500, '\n');
-	if (std::cin.peek() == '\n')
-	{
-		OpenCategoryManagerMenu();
-	}
-	return;
+	RequestEnter();
+	ActiveCommand = EMenuCommand::CategoryManagerMenu;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void FSteam::OpenRemoveCategory()
@@ -222,11 +184,9 @@ void FSteam::OpenRemoveCategory()
 	{
 		std::cout << "There is currently no category. Please type Enter to return to the previous menu";
 
-		std::cin.ignore(500, '\n');
-		if (std::cin.peek() == '\n')
-		{
-			OpenCategoryManagerMenu();
-		}
+		RequestEnter();
+		ActiveCommand = EMenuCommand::CategoryManagerMenu;
+
 		return;
 
 	}
@@ -234,19 +194,16 @@ void FSteam::OpenRemoveCategory()
 	std::cout << "Choose one of the following options or categories to remove:\n" << std::endl << "0 - Don't remove any category, return to the previous menu" << std::endl;
 	for (int i = 1; i <= CategoryContainer.GetCurrentNumberOfCategories(); i++)
 	{
-		std::cout << i << " - " << CategoryContainer.GetCategory(i-1).GetName() << std::endl;
+		std::cout << i << " - " << CategoryContainer.GetCategory(i - 1).GetName() << std::endl;
 	}
 
-	std::cout << "\nPlease enter your choice: ";
+	std::cout << std::endl;
 
-	float TemporalUserChoice;
-	std::cin >> TemporalUserChoice;
-
-	int UserChoice = ValidateInputAndReturnValidatedInput(TemporalUserChoice, "Please enter a valid choice : ", 0, CategoryContainer.GetCurrentNumberOfCategories());
+	int UserChoice = GetValidatedInput("Please enter a valid choice : ", 0, CategoryContainer.GetCurrentNumberOfCategories());
 
 	if (UserChoice == 0)
 	{
-		OpenCategoryManagerMenu();
+		ActiveCommand = EMenuCommand::CategoryManagerMenu;
 		return;
 	}
 
@@ -257,17 +214,13 @@ void FSteam::OpenRemoveCategory()
 
 	std::cout << "Category removed succesfully. Please type Enter to return to the previous menu ";
 
-	std::cin.ignore(500, '\n');
-	if (std::cin.peek() == '\n')
-	{
-		OpenCategoryManagerMenu();
-	}
-	return;
+	RequestEnter();
+	ActiveCommand = EMenuCommand::CategoryManagerMenu;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-int FSteam::ChooseCategory()
+int FSteam::ChooseCategory() const
 {
-	if (!AskChooseCategory())
+	if (CategoryContainer.IsEmpty() || !AskChooseCategory())
 	{
 		// Same value as it was, the Uncategorized one
 		return -1;
@@ -282,28 +235,18 @@ int FSteam::ChooseCategory()
 		std::cout << i << " - " << CategoryContainer.GetCategory(i - 1).GetName() << std::endl;
 	}
 
-	std::cout << "TELL ME: ";
-	float TemporalUserChoice;
-	std::cin >> TemporalUserChoice;
-
-	return ValidateInputAndReturnValidatedInput(TemporalUserChoice, "TELL ME A VALID OPTION: ", 1, CategoryContainer.GetCurrentNumberOfCategories()) - 1;
+	return GetValidatedInput("TELL ME: ", 1, CategoryContainer.GetCurrentNumberOfCategories()) - 1;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool FSteam::AskChooseCategory()
+bool FSteam::AskChooseCategory() const
 {
 	system("cls");
 	std::string AskChooseCategoryMessage = "Would you like to choose a category for your new game? \n1 - Yes\n2 - No\nTELL ME : ";
 	std::cout << AskChooseCategoryMessage;
 
 	enum class EQuestionCategoryCommand { Yes = 1, No };
-	EQuestionCategoryCommand UserChoice;
 
-	float TemporalUserChoice;
-	std::cin >> TemporalUserChoice;
-
-	UserChoice = (EQuestionCategoryCommand)ValidateInputAndReturnValidatedInput(TemporalUserChoice, AskChooseCategoryMessage, 1, 2);
-
-	switch (UserChoice)
+	switch ((EQuestionCategoryCommand)GetValidatedInput(AskChooseCategoryMessage, 1, 2))
 	{
 	case EQuestionCategoryCommand::Yes:
 		return true;
@@ -317,41 +260,51 @@ bool FSteam::AskChooseCategory()
 	}
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool FSteam::IsInteger(float Float) const
+bool FSteam::IsInteger(const float Float) const
 {
 	return (Float - floor(Float)) == 0.f;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool FSteam::IsInRange(float Value, int LowerBound, int UpperBound) const
+bool FSteam::IsInRange(const float Value, const int LowerBound, const int UpperBound) const
 {
 	return Value >= LowerBound && Value <= UpperBound;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-int FSteam::ValidateInputAndReturnValidatedInput(float Input, std::string Message, int LowerBound, int UpperBound)
+int FSteam::GetValidatedInput(const std::string Message, const int LowerBound, const int UpperBound) const
 {
-	while (!std::cin.good() || !IsInteger(Input) || !IsInRange(Input, LowerBound, UpperBound))
+	std::cout << Message;
+
+	float UserInput;
+	std::cin >> UserInput;
+
+	while (!std::cin.good() || !IsInteger(UserInput) || !IsInRange(UserInput, LowerBound, UpperBound))
 	{
 		ResetConsoleInputScreen();
 
 		std::cout << Message;
-		std::cin >> Input;
+		std::cin >> UserInput;
 	}
-	return (int)Input;
+	return (int)UserInput;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-std::string FSteam::ValidateInputAndReturnValidatedInput(std::string StringInput, std::string Message)
+std::string FSteam::GetValidatedInput(const std::string Message) const
 {
-	while (!std::cin.good() || StringInput == "")
+	std::cout << Message;
+
+	std::string UserInput;
+	std::cin >> UserInput;
+
+	while (!std::cin.good() || UserInput.empty())
 	{
 		ResetConsoleInputScreen();
 
 		std::cout << Message;
-		std::cin >> StringInput;
+		std::cin >> UserInput;
 	}
-	return StringInput;
+	return UserInput;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-int FSteam::GetValidDay(float TemporalDay, int Month, int Year)
+int FSteam::GetValidDay(const int Month, const int Year) const
 {
 	switch (Month)
 	{
@@ -359,11 +312,11 @@ int FSteam::GetValidDay(float TemporalDay, int Month, int Year)
 	case 2:
 		if (Year % 4 == 0 && Year != 1900)
 		{
-			return ValidateInputAndReturnValidatedInput(TemporalDay, "Please insert the actual day the game was published: ", 1, 29);
+			return GetValidatedInput("Please insert the day the game was published: ", 1, 29);
 		}
 		else
 		{
-			return ValidateInputAndReturnValidatedInput(TemporalDay, "Please insert the actual day the game was published: ", 1, 28);
+			return GetValidatedInput("Please insert the actual day the game was published: ", 1, 28);
 		}
 
 		// Cases of months that have 31 days
@@ -374,14 +327,14 @@ int FSteam::GetValidDay(float TemporalDay, int Month, int Year)
 	case 8:
 	case 10:
 	case 12:
-		return ValidateInputAndReturnValidatedInput(TemporalDay, "Please insert the actual day the game was published: ", 1, 31);
+		return GetValidatedInput("Please insert the day the game was published: ", 1, 31);
 
 		// Cases of months that have 30 days
 	case 4:
 	case 6:
 	case 9:
 	case 11:
-		return ValidateInputAndReturnValidatedInput(TemporalDay, "Please insert the actual day the game was published: ", 1, 30);
+		return GetValidatedInput("Please insert the day the game was published: ", 1, 30);
 
 	default:
 		"AddGame Date Error, please contact support";
@@ -389,7 +342,7 @@ int FSteam::GetValidDay(float TemporalDay, int Month, int Year)
 	}
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void FSteam::ResetConsoleInputScreen()
+void FSteam::ResetConsoleInputScreen() const
 {
 	std::cin.clear();
 	std::cin.ignore(INT_MAX, '\n');
@@ -403,7 +356,7 @@ FSteam::FSteam() : ActiveCommand(EMenuCommand::MainMenu), NumberOfGames(0)
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void FSteam::RunSteam()
 {
-	while (true)
+	while (ActiveCommand != EMenuCommand::Exit)
 	{
 		switch (ActiveCommand)
 		{
@@ -424,7 +377,7 @@ void FSteam::RunSteam()
 			break;
 
 		case EMenuCommand::Exit:
-			return;
+			break;
 
 		default:
 			std::cout << "Menu Error, please contact support";

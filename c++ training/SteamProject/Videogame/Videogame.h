@@ -2,14 +2,15 @@
 #include <iostream>
 #include "Date.h"
 
-class FVideogame {
+class FVideogame
+{
 private:
 	std::string Name;
 	std::string Studio;
 	FDate Date;
 
 public:
-	FVideogame();
+	FVideogame() {}
 	FVideogame(const std::string Name, const std::string Studio, const FDate Date);
 
 	bool IsValid() const;

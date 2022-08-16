@@ -3,7 +3,8 @@
 
 
 
-class FSteam {
+class FSteam 
+{
 private:
 	FCategoryContainer CategoryContainer;
 	FCategory Uncategorized = FCategory("Uncategorized");
@@ -27,15 +28,17 @@ private:
 
 	bool IsInteger(const float Float) const;
 	bool IsInRange(const float Value, const int LowerBound, const int UpperBound) const;
-	int ValidateInputAndReturnValidatedInput(float FirstInput, const std::string Message, const int LowerBound, const int UpperBound);
-	std::string ValidateInputAndReturnValidatedInput(std::string StringInput, const std::string Message);
+	int GetValidatedInput(const std::string Message, const int LowerBound, const int UpperBound) const;
+	std::string GetValidatedInput(const std::string Message) const;
 
-	void ResetConsoleInputScreen();
+	void ResetConsoleInputScreen() const;
 
-	int ChooseCategory();
-	bool AskChooseCategory();
+	int ChooseCategory() const;
+	bool AskChooseCategory() const;
 
-	int GetValidDay(float TemporalDay, const int Month, const int Year);
+	void RequestEnter() const;
+
+	int GetValidDay(const int Month, const int Year) const;
 
 	void OpenCreateCategory();
 	void OpenRemoveCategory();

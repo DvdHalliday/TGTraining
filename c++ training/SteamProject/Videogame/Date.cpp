@@ -9,7 +9,7 @@ FDate::FDate(const int NewDay, const int NewMonth, const int NewYear) : Day(NewD
 {
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void FDate::SetDate(int NewDay, int NewMonth, int NewYear)
+void FDate::SetDate(const int NewDay, const int NewMonth, const int NewYear)
 {
 	Day = NewDay;
 	Month = NewMonth;
@@ -30,8 +30,14 @@ int FDate::GetYear() const
 {
 	return Year;
 }
+bool FDate::IsValid() const
+{
+	return Day > 0 && Day < 32 &&
+		Month > 0 && Month < 13 &&
+		Year > 1900 && Day < 2023;;
+}
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 std::string FDate::ToFormattedString() const
 {
-	return std::to_string(GetDay()) + "/" + std::to_string(GetMonth()) + "/" + std::to_string(GetYear());;
+	return std::to_string(GetDay()) + "/" + std::to_string(GetMonth()) + "/" + std::to_string(GetYear());
 }

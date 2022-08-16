@@ -5,14 +5,20 @@ FCategory::FCategory() : Name("Default Name"), CurrentNumberOfGames(0)
 {
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-FCategory::FCategory(std::string NewName) : Name(NewName), CurrentNumberOfGames(0)
+FCategory::FCategory(const std::string NewName) : Name(NewName), CurrentNumberOfGames(0)
 {
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void FCategory::AddGame(FVideogame Videogame)
+void FCategory::AddGame(const FVideogame Videogame)
 {
-	// This adds the game in the current CurrentNumberOfGames position and after that increases its value adding 1
-	Games[CurrentNumberOfGames++] = Videogame;
+	if (!IsFull())
+	{
+		// This adds the game in the current CurrentNumberOfGames position and after that increases its value adding 1
+		Games[CurrentNumberOfGames++] = Videogame;
+		return;
+	}
+
+	std::cout << "Full category Error, please contact support" << std::endl;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool FCategory::IsFull() const
@@ -25,7 +31,7 @@ std::string FCategory::GetName() const
 	return Name;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-FVideogame FCategory::GetGame(int Index) const
+FVideogame FCategory::GetGame(const int Index) const
 {
 	if (Index >= 0 && Index < CurrentNumberOfGames)
 	{

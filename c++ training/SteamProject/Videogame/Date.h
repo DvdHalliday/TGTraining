@@ -2,7 +2,8 @@
 #include<iostream>
 #include<string>
 
-class FDate {
+class FDate
+{
 private:
 	int Day;
 	int Month;
@@ -16,6 +17,7 @@ public:
 	int GetDay() const;
 	int GetMonth() const;
 	int GetYear() const;
+	bool IsValid() const;
 
 	std::string ToFormattedString() const;
 };

@@ -1,7 +1,8 @@
 #pragma once
 #include "Category.h"
 
-class FCategoryContainer {
+class FCategoryContainer 
+{
 private:
 	const static int MaxCategoriesAmount = 30;
 	FCategory Categories[MaxCategoriesAmount];

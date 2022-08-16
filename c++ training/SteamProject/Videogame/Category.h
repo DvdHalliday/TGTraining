@@ -1,8 +1,8 @@
 #pragma once
 #include "Videogame.h"
 
-class FCategory {
-
+class FCategory 
+{
 private:
 	const static int MaxGamesAmount = 30;
 	FVideogame Games[MaxGamesAmount];
