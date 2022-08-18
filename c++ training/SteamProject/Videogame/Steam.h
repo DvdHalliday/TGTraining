@@ -3,7 +3,7 @@
 
 
 
-class FSteam 
+class FSteam
 {
 private:
 	FCategoryContainer CategoryContainer;
@@ -20,31 +20,34 @@ private:
 		Exit
 	};
 	EMenuCommand ActiveCommand;
-	
+
 	void OpenMainMenu();
 	void OpenAddGamesMenu();
 	void OpenCategoryManagerMenu();
 	void OpenGameDisplayerMenu();
 
-	bool IsInteger(const float Float) const;
-	bool IsInRange(const float Value, const int LowerBound, const int UpperBound) const;
-	int GetValidatedInput(const std::string Message, const int LowerBound, const int UpperBound) const;
-	std::string GetValidatedInput(const std::string Message) const;
+	bool IsInteger(const float& Float) const;
+	bool IsInRange(const float& Value, const int& LowerBound, const int& UpperBound) const;
+	void ValidateInput(int& OutInput, const std::string& Message, const int& LowerBound, const int& UpperBound) const;
+	void ValidateInput(std::string& OutInput, const std::string& Message) const;
 
 	void ResetConsoleInputScreen() const;
 
-	int ChooseCategory() const;
-	bool AskChooseCategory() const;
+	const int& ChooseCategory() const;
+	const bool& AskChooseCategory() const;
 
 	void RequestEnter() const;
 
-	int GetValidDay(const int Month, const int Year) const;
+	const int& GetValidDay(const int& Month, const int& Year) const;
 
 	void OpenCreateCategory();
 	void OpenRemoveCategory();
 
 public:
 	FSteam();
+	FSteam(const FSteam& Other);
+	~FSteam() {}
+
 	void RunSteam();
 
 };

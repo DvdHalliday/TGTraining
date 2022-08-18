@@ -5,6 +5,11 @@ FCategoryContainer::FCategoryContainer() : CurrentNumberOfCategories(0)
 {
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+FCategoryContainer::FCategoryContainer(const FCategoryContainer& Other) : CurrentNumberOfCategories(Other.CurrentNumberOfCategories)
+{
+	memcpy_s(Categories, sizeof Categories, Other.Categories, sizeof Other.Categories);
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool FCategoryContainer::IsFull() const
 {
 	return CurrentNumberOfCategories >= MaxCategoriesAmount;
@@ -15,7 +20,7 @@ bool FCategoryContainer::IsEmpty() const
 	return CurrentNumberOfCategories == 0;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool FCategoryContainer::AddCategory(const FCategory Category)
+bool FCategoryContainer::AddCategory(const FCategory& Category)
 {
 	if (!IsFull())
 	{
@@ -25,7 +30,7 @@ bool FCategoryContainer::AddCategory(const FCategory Category)
 	return false;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool FCategoryContainer::RemoveCategory(const int Index)
+bool FCategoryContainer::RemoveCategory(const int& Index)
 {
 	if (IsEmpty() || Index < 0 || Index >= CurrentNumberOfCategories)
 	{
@@ -39,16 +44,17 @@ bool FCategoryContainer::RemoveCategory(const int Index)
 	return true;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-FCategory FCategoryContainer::GetCategory(const int Index) const
+bool FCategoryContainer::GetCategoryAt(const int& Index, FCategory& OutCategory) const
 {
 	if (Index >= 0 && Index < CurrentNumberOfCategories)
 	{
-		return Categories[Index];
+		OutCategory = Categories[Index];
+		return true;
 	}
-	return FCategory();
+	return false;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void FCategoryContainer::AddGameToCategory(const int CategoryIndex, const FVideogame Game)
+void FCategoryContainer::AddGameToCategory(const int& CategoryIndex, const FVideogame& Game)
 {
 	if (CategoryIndex < 0 || CategoryIndex >= CurrentNumberOfCategories) 
 	{
@@ -58,7 +64,7 @@ void FCategoryContainer::AddGameToCategory(const int CategoryIndex, const FVideo
 	Categories[CategoryIndex].AddGame(Game);
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-int FCategoryContainer::GetCurrentNumberOfCategories() const
+const int& FCategoryContainer::GetCurrentNumberOfCategories() const
 {
 	return CurrentNumberOfCategories;
 }
