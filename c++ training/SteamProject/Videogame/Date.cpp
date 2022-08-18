@@ -5,28 +5,32 @@ FDate::FDate() : Day(1), Month(1), Year(2000)
 {
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-FDate::FDate(const int NewDay, const int NewMonth, const int NewYear) : Day(NewDay), Month(NewMonth), Year(NewYear)
+FDate::FDate(const int& NewDay, const int& NewMonth, const int& NewYear) : Day(NewDay), Month(NewMonth), Year(NewYear)
 {
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void FDate::SetDate(const int NewDay, const int NewMonth, const int NewYear)
+FDate::FDate(const FDate& Other) : Day(Other.Day), Month(Other.Month), Year(Other.Year)
+{
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void FDate::SetDate(const int& NewDay, const int& NewMonth, const int& NewYear)
 {
 	Day = NewDay;
 	Month = NewMonth;
 	Year = NewYear;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-int FDate::GetDay() const
+const int& FDate::GetDay() const
 {
 	return Day;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-int FDate::GetMonth() const
+const int& FDate::GetMonth() const
 {
 	return Month;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-int FDate::GetYear() const
+const int& FDate::GetYear() const
 {
 	return Year;
 }
