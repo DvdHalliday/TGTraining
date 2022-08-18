@@ -6,11 +6,11 @@ class FCategory
 private:
 	const static int MaxGamesAmount = 30;
 	FVideogame Games[MaxGamesAmount];
-	int CurrentNumberOfGames;
-	std::string Name;
+	int CurrentNumberOfGames = 0;
+	std::string Name = "Default name";
 
 public:
-	FCategory();
+	FCategory() {}
 	FCategory(const std::string NewName);
 
 	void AddGame(const FVideogame Videogame);

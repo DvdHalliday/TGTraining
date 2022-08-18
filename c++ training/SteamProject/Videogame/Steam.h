@@ -9,7 +9,7 @@ private:
 	FCategoryContainer CategoryContainer;
 	FCategory Uncategorized = FCategory("Uncategorized");
 
-	int NumberOfGames;
+	int NumberOfGames = 0;
 
 	enum class EMenuCommand
 	{
@@ -19,7 +19,7 @@ private:
 		GameDisplayerMenu,
 		Exit
 	};
-	EMenuCommand ActiveCommand;
+	EMenuCommand ActiveCommand = EMenuCommand::MainMenu;
 	
 	void OpenMainMenu();
 	void OpenAddGamesMenu();
@@ -44,7 +44,7 @@ private:
 	void OpenRemoveCategory();
 
 public:
-	FSteam();
+	FSteam() {}
 	void RunSteam();
 
 };
