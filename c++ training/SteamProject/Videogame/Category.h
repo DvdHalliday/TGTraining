@@ -11,12 +11,15 @@ private:
 
 public:
 	FCategory();
-	FCategory(const std::string NewName);
+	FCategory(const std::string& NewName);
 
-	void AddGame(const FVideogame Videogame);
+	FCategory(const FCategory& Other);
+	~FCategory() {}
+
+	void AddGame(const FVideogame& Videogame);
 	bool IsFull() const;
 
-	std::string GetName() const;
-	FVideogame GetGame(const int Index) const;
-	int GetCurrentNumberOfGames() const;
+	const std::string& GetName() const;
+	bool GetGameAt(const int& Index, FVideogame& OutVideogame) const;
+	const int& GetCurrentNumberOfGames() const;
 };
