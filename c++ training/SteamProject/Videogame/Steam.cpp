@@ -114,8 +114,11 @@ void FSteam::OpenGameDisplayerMenu() {
 		std::cout << "---------------------------------------------------------\n" << "Uncategorized Games\n" << std::endl;
 		for (int i = 0; i < Uncategorized.GetCurrentNumberOfGames(); i++)
 		{
-			FVideogame Game = Uncategorized.GetGame(i);
-			std::cout << Game.GetName() << "\t by " << Game.GetStudio() << "\t published on " << Game.GetFormattedDate() << std::endl;
+			FVideogame Game;
+			if (Uncategorized.GetGameAt(i, Game))
+			{
+				std::cout << Game.GetName() << "\t by " << Game.GetStudio() << "\t published on " << Game.GetFormattedDate() << std::endl;
+			}
 		}
 	}
 
@@ -127,8 +130,11 @@ void FSteam::OpenGameDisplayerMenu() {
 
 			for (int j = 0; j < CategoryContainer.GetCategory(i).GetCurrentNumberOfGames(); j++)
 			{
-				FVideogame Game = CategoryContainer.GetCategory(i).GetGame(j);
-				std::cout << Game.GetName() << "\t by " << Game.GetStudio() << "\t published on " << Game.GetFormattedDate() << std::endl;
+				FVideogame Game;
+				if (CategoryContainer.GetCategory(i).GetGameAt(j, Game))
+				{
+					std::cout << Game.GetName() << "\t by " << Game.GetStudio() << "\t published on " << Game.GetFormattedDate() << std::endl;
+				}
 			}
 		}
 	}
