@@ -45,11 +45,14 @@ void FSteam::OpenAddGamesMenu()
 	CategoryIndex = ChooseCategory();
 	system("cls");
 
+	std::cin.clear();
+	std::cin.ignore(INT_MAX, '\n');
+
 	std::string GameName;
 	ValidateInput(GameName, "Please insert the name of the game: ");
 
 	std::string GameStudio;
-	ValidateInput(GameStudio, "Please insert a valid name for the game studio: ");
+	ValidateInput(GameStudio, "Please insert a name for the game studio: ");
 
 	int Year;
 	ValidateInput(Year, "Please insert the year the game was published: ", 1900, 2022);
@@ -178,6 +181,9 @@ void FSteam::OpenCreateCategory()
 
 		return;
 	}
+
+	std::cin.clear();
+	std::cin.ignore(INT_MAX, '\n');
 
 	std::string CategoryName;
 	ValidateInput(CategoryName, "Please enter a name for the new category: ");
@@ -320,14 +326,14 @@ void FSteam::ValidateInput(std::string& OutInput, const std::string& Message) co
 {
 	std::cout << Message;
 
-	std::cin >> OutInput;
+	std::getline(std::cin, OutInput);
 
 	while (!std::cin.good() || OutInput.empty())
 	{
 		ResetConsoleInputScreen();
 
 		std::cout << Message;
-		std::cin >> OutInput;
+		std::getline(std::cin, OutInput);
 	}
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
