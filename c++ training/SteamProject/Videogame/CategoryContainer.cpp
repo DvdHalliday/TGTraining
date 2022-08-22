@@ -30,7 +30,7 @@ bool FCategoryContainer::AddCategory(const FCategory& Category)
 	return false;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool FCategoryContainer::RemoveCategory(const int& Index)
+bool FCategoryContainer::RemoveCategory(const int Index)
 {
 	if (IsEmpty() || Index < 0 || Index >= CurrentNumberOfCategories)
 	{
@@ -44,7 +44,7 @@ bool FCategoryContainer::RemoveCategory(const int& Index)
 	return true;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool FCategoryContainer::GetCategoryAt(const int& Index, FCategory& OutCategory) const
+bool FCategoryContainer::GetCategoryAt(const int Index, FCategory& OutCategory) const
 {
 	if (Index >= 0 && Index < CurrentNumberOfCategories)
 	{
@@ -54,7 +54,7 @@ bool FCategoryContainer::GetCategoryAt(const int& Index, FCategory& OutCategory)
 	return false;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void FCategoryContainer::AddGameToCategory(const int& CategoryIndex, const FVideogame& Game)
+void FCategoryContainer::AddGameToCategory(const int CategoryIndex, const FVideogame& Game)
 {
 	if (CategoryIndex < 0 || CategoryIndex >= CurrentNumberOfCategories) 
 	{
@@ -64,7 +64,7 @@ void FCategoryContainer::AddGameToCategory(const int& CategoryIndex, const FVide
 	Categories[CategoryIndex].AddGame(Game);
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-const int& FCategoryContainer::GetCurrentNumberOfCategories() const
+int FCategoryContainer::GetCurrentNumberOfCategories() const
 {
 	return CurrentNumberOfCategories;
 }

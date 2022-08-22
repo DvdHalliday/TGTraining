@@ -18,10 +18,10 @@ public:
 	bool IsEmpty() const;
 
 	bool AddCategory(const FCategory& Category);
-	bool RemoveCategory(const int& Index);
+	bool RemoveCategory(const int Index);
 
-	void AddGameToCategory(const int& CategoryIndex, const FVideogame& Game);
+	void AddGameToCategory(const int CategoryIndex, const FVideogame& Game);
 
-	bool GetCategoryAt(const int& Index, FCategory& OutCategory) const;
-	const int& GetCurrentNumberOfCategories() const;
+	bool GetCategoryAt(const int Index, FCategory& OutCategory) const;
+	int GetCurrentNumberOfCategories() const;
 };

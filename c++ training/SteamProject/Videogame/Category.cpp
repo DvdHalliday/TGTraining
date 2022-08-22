@@ -36,7 +36,7 @@ const std::string& FCategory::GetName() const
 	return Name;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool FCategory::GetGameAt(const int& Index, FVideogame& OutVideogame) const
+bool FCategory::GetGameAt(const int Index, FVideogame& OutVideogame) const
 {
 	if (Index >= 0 && Index < CurrentNumberOfGames)
 	{
@@ -46,7 +46,7 @@ bool FCategory::GetGameAt(const int& Index, FVideogame& OutVideogame) const
 	return false;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-const int& FCategory::GetCurrentNumberOfGames() const
+int FCategory::GetCurrentNumberOfGames() const
 {
 	return CurrentNumberOfGames;
 }

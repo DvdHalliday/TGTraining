@@ -20,6 +20,6 @@ public:
 	bool IsFull() const;
 
 	const std::string& GetName() const;
-	bool GetGameAt(const int& Index, FVideogame& OutVideogame) const;
-	const int& GetCurrentNumberOfGames() const;
+	bool GetGameAt(const int Index, FVideogame& OutVideogame) const;
+	int GetCurrentNumberOfGames() const;
 };
