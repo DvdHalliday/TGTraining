@@ -3,7 +3,7 @@
 
 
 
-class FSteam 
+class FSteam
 {
 private:
 	FCategoryContainer CategoryContainer;
@@ -20,7 +20,7 @@ private:
 		Exit
 	};
 	EMenuCommand ActiveCommand;
-	
+
 	void OpenMainMenu();
 	void OpenAddGamesMenu();
 	void OpenCategoryManagerMenu();
@@ -28,8 +28,8 @@ private:
 
 	bool IsInteger(const float Float) const;
 	bool IsInRange(const float Value, const int LowerBound, const int UpperBound) const;
-	int GetValidatedInput(const std::string Message, const int LowerBound, const int UpperBound) const;
-	std::string GetValidatedInput(const std::string Message) const;
+	int ValidateInput(const std::string& Message, const int LowerBound, const int UpperBound) const;
+	std::string ValidateInput(const std::string& Message) const;
 
 	void ResetConsoleInputScreen() const;
 
@@ -45,6 +45,9 @@ private:
 
 public:
 	FSteam();
+	FSteam(const FSteam& Other);
+	~FSteam() {}
+
 	void RunSteam();
 
 };

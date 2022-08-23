@@ -1,6 +1,10 @@
 #include "Videogame.h"
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-FVideogame::FVideogame(const std::string NewName, const std::string NewStudio, const FDate NewDate) : Name(NewName), Studio(NewStudio), Date(NewDate)
+FVideogame::FVideogame(const std::string& NewName, const std::string& NewStudio, const FDate& NewDate) : Name(NewName), Studio(NewStudio), Date(NewDate)
+{
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+FVideogame::FVideogame(const FVideogame& Other) : Name(Other.Name), Studio(Other.Studio), Date(Other.Date)
 {
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -14,12 +18,12 @@ std::string FVideogame::GetFormattedDate() const
 	return Date.ToFormattedString();
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-std::string FVideogame::GetName() const
+const std::string& FVideogame::GetName() const
 {
 	return Name;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-std::string FVideogame::GetStudio() const
+const std::string& FVideogame::GetStudio() const
 {
 	return Studio;
 }
