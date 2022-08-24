@@ -1,6 +1,7 @@
 #include <iostream>
 
-/* Create a program that will ask the user to enter two integers and assign the given values to two
+/* Exercise 3 - Understanding Pointers 2
+Create a program that will ask the user to enter two integers and assign the given values to two
 separate integers.
 Declare an int* variable and assign it to the memory address of the first integer. Now, using only
 the pointer variable, print the value of the first integer and its memory address. Additionally, print
