@@ -1,6 +1,7 @@
 #include <iostream>
 
-/* Create a program that will ask the user for an integer value. Assign the value to an integer
+/* Exercise 2 - Understanding Pointers
+Create a program that will ask the user for an integer value. Assign the value to an integer
 variable.
 Then, create an int* variable and assign it to the memory address of the integer variable.
 Ask the user to enter a new value for the variable. Then, using only the pointer variable, change
