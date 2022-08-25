@@ -15,8 +15,8 @@ int main()
 	int* FirstReference = &Variable;
 	int* SecondReference = &Variable;
 
-	(* FirstReference)++;
-	(* SecondReference)++;
+	(*FirstReference)++;
+	(*SecondReference)++;
 
 	std::cout << "The value of my variable after the pointer stuff I did is " << Variable << "." << std::endl;
 }
