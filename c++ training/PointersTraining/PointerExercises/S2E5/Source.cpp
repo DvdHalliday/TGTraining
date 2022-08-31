@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 /* Exercise 5 - Dynamic Allocation for Array Sizes
 Create a Student class that contains a char array of size 5 for a name and an int for an age. Ask
@@ -8,29 +9,41 @@ useful.
 Ask the user for a name and an age for each student and then print them all to the screen. Note
 that you won’t be able to use names longer than 4 characters.
 Remember to free any allocated memory.*/
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 class FStudent
 {
 private:
-	std::string Name;
+	char* Name;
 	int Age;
+
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	void SetName(const char* NewName)
+	{
+		int FullNameSize = std::strlen(NewName) + 1;
+		Name = new char[FullNameSize];
+		memcpy_s(Name, FullNameSize, NewName, FullNameSize);
+	}
 
 public:
 	FStudent() : Age(1) {}
-	FStudent(const std::string& NewName, int NewAge) : Name(NewName), Age(NewAge)
+	FStudent(char* NewName, int NewAge) : Age(NewAge)
 	{
+		SetName(NewName);
 	}
 
-	const std::string& GetName() const
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	const char* GetName() const
 	{
 		return Name;
 	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	const int GetAge() const
 	{
 		return Age;
 	}
-};
 
+};
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int main()
 {
 	std::cout << "How many students do you want? ";
@@ -44,15 +57,17 @@ int main()
 
 	for (int i = 0; i < NumberOfStudents; i++)
 	{
-		std::cout << "Enter a name for student #" << i+1 << ": ";
-		std::string StudentName;
-		std::cin >> StudentName;
+		std::cin.ignore(500, '\n');
 
-		std::cout << "Enter the age of student #" << i+1 << ": ";
+		std::cout << "Enter a name for student #" << i + 1 << ": ";
+		char TemporaryStudentName[32];
+		std::cin.getline(TemporaryStudentName, 32, '\n');
+
+		std::cout << "Enter the age of student #" << i + 1 << ": ";
 		int StudentAge;
 		std::cin >> StudentAge;
 
-		Students[i] = FStudent(StudentName, StudentAge);
+		Students[i] = FStudent(TemporaryStudentName, StudentAge);
 		std::cout << std::endl << std::endl;
 	}
 
