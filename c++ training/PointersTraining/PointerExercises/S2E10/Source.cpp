@@ -17,6 +17,12 @@ int main()
 	std::cout << "I think forward declarations are really useful optimization-wise. Having worked in compilers a bit in the past I can really see" << std::endl;
 	std::cout << "why using a forward declaration could be used on high performance when implemented with look aheads." << std::endl;
 	std::cout << "Also, when dealing with OOP in Java I often found myself in one of these cyclic reference situations, and usually ended up" << std::endl;
-	std::cout << "trying to work a way around it just to avoid that sort of conundrum." << std::endl;
+	std::cout << "trying to work a way around it just to avoid that sort of conundrum." << std::endl << std::endl;
+
+	std::cout << "I guess this is happening due to the fact that creating a pointer is easy enough, you only really need the space of the pointer" << std::endl;
+	std::cout << "to be initialized, which will always be, I think, in this computer, 8 bytes. If you try to initializa an object, now that would be" << std::endl;
+	std::cout << "trouble, for even though you were already promised that an object as such exists, you really don't know further information about it," << std::endl;
+	std::cout << "you have no idea of its size, members, methods." << std::endl;
+
 	return 0;
 }
