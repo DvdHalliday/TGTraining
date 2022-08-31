@@ -13,16 +13,9 @@ Remember to free any allocated memory.*/
 class FStudent
 {
 private:
-	char* Name;
+	char* Name = nullptr;
 	int Age;
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	void SetName(const char* NewName)
-	{
-		int FullNameSize = std::strlen(NewName) + 1;
-		Name = new char[FullNameSize];
-		memcpy_s(Name, FullNameSize, NewName, FullNameSize);
-	}
 
 public:
 	FStudent() : Age(1) {}
@@ -38,6 +31,21 @@ public:
 		Name = nullptr;
 	}
 	
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	void SetName(const char* NewName)
+	{
+		if (Name)
+		{
+			delete Name;
+			Name = nullptr;
+		}
+
+		const int FullNameSize = std::strlen(NewName) + 1;
+		Name = new char[FullNameSize];
+
+		memcpy_s(Name, FullNameSize, NewName, FullNameSize);
+	}
+
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	const char* GetName() const
 	{
@@ -55,6 +63,8 @@ int main()
 {
 	char TestName[2] = { 'a', '\0' };
 	FStudent* TestStudent = new FStudent(TestName, 4);
+	char TestName2[3] = { 'b', 'b', '\0' };
+	TestStudent->SetName(TestName2);
 	delete TestStudent;
 
 	std::cout << "This happens because we're initializing a built-in type array in the heap memory when we call the SetName function in the constructor." << std::endl;
