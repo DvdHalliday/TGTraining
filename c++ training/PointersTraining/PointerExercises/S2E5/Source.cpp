@@ -46,6 +46,14 @@ public:
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int main()
 {
+	char TestName[2] = { 'a', '\0' };
+	FStudent* TestStudent = new FStudent(TestName, 4);
+	delete TestStudent;
+
+	std::cout << "This happens because we're initializing a built-in type array in the heap memory when we call the SetName function in the constructor." << std::endl;
+	std::cout << "However, we're actually never deleting of freeing that heap memory, which we should probably do in a destructor. This is one of the" << std::endl;
+	std::cout << "types of memory leaks that we studied in class." << std::endl << std::endl;
+
 	std::cout << "How many students do you want? ";
 
 	int NumberOfStudents;
