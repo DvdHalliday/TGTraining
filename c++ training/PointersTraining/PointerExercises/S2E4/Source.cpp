@@ -23,7 +23,11 @@ int main()
 
 	if (SoonToBeADanglingPointer)
 	{
-		std::cout << *SoonToBeADanglingPointer;
+		std::cout << "The input is valid";
+	}
+	else
+	{
+		std::cout << "The input is not valid";
 	}
 
 	std::cout << "Well, this is simply happening cause even though the memory was set free again," << std::endl;

@@ -35,7 +35,7 @@ int main()
 
 	delete HeapInt1, HeapInt2, HeapInt3;
 
-	std::cout << "The difference between these memory addresses is: essentially, that the variables that areinitialised and allocated in the stack are " << std::endl;
+	std::cout << "The difference between these memory addresses is: essentially, that the variables that are initialised and allocated in the stack are " << std::endl;
 	std::cout << "being stored continuously one after another, every 4 bytes, which is the size of every integer." << std::endl;
 	std::cout << "Heap allocated integers are, on the other hand, given memory locations that seem much more random, there is in fact not necessarilly " << std::endl;
 	std::cout << "always much correlation between the variables addresses altogether. They might be near each other, however there will not always be" << std::endl;
