@@ -5,11 +5,13 @@ class FCircle : public FShape
 {
 private:
 	float Radius = 1.f;
+	const static std::string ShapeName;
 
 public:
-	FCircle() {}
-	FCircle(const int NewRadius);
+	FCircle()  {}
+	FCircle(const float NewRadius);
 
 	virtual float GetArea() const override;
 	virtual float GetPerimeter() const override;
+	virtual const std::string& GetShapeName() const override;
 };
