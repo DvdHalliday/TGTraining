@@ -29,6 +29,7 @@ private:
 	std::string GetValidatedInput(const std::string& Message) const;
 
 	void ResetConsoleInputScreen() const;
+	void RequestEnter() const;
 
 public:
 	FYourShapeApp() {}
