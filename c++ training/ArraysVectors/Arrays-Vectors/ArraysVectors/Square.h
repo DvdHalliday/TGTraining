@@ -11,6 +11,7 @@ private:
 public:
 	FSquare() {}
 	FSquare(const float NewSideLength);
+	FSquare(const FSquare& Other);
 
 	virtual float GetArea() const override;
 	virtual float GetPerimeter() const override;

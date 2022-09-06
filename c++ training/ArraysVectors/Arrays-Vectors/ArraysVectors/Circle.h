@@ -8,8 +8,9 @@ private:
 	const static std::string ShapeName;
 
 public:
-	FCircle()  {}
+	FCircle() {}
 	FCircle(const float NewRadius);
+	FCircle(const FCircle& Other);
 
 	virtual float GetArea() const override;
 	virtual float GetPerimeter() const override;
