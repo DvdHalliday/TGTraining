@@ -25,3 +25,8 @@ const std::string& FCircle::GetShapeName() const
 {
 	return ShapeName;
 }
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+bool FCircle::operator==(const FCircle& Other)
+{
+	return Radius == Other.Radius;
+}

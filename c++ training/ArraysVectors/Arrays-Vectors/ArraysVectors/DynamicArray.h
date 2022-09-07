@@ -196,4 +196,43 @@ public:
 			PushBack(Other[i]);
 		}
 	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// This method inverts the order in the array
+	void Invert()
+	{
+		TDynamicArray TemporaryCopy(*this);
+		
+		for (int i = 0; i < Size; i++)
+		{
+			Data[i] = TemporaryCopy[Size - 1 - i];
+		}
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// Finds the index of the first occurence of the object in the array, we get -1 in case the element wasn't found
+	int Find(T& Item) const
+	{
+		for (int i = 0; i < Size; i++)
+		{
+			if (Data[i] == Item)
+			{
+				return i;
+			}
+		}
+
+		return -1;
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// Similar to last method, only this will return the last occurence and not the first one.
+	int FindLast(T& Item) const
+	{
+		for (int i = Size - 1; i >= 0; i++)
+		{
+			if (Data[i] == Item)
+			{
+				return i;
+			}
+		}
+
+		return -1;
+	}
 };

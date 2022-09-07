@@ -25,3 +25,8 @@ const std::string& FSquare::GetShapeName() const
 {
 	return ShapeName;
 }
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+bool FSquare::operator==(const FSquare& Other)
+{
+	return SideLength == Other.SideLength;
+}
