@@ -105,5 +105,84 @@ public:
 			CopyData(Size);
 		}
 	}
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	void Clear()
+	{
+		Size = 0;
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	void PushBack(const T& NewItem)
+	{
+		if (Size == Capacity)
+		{
+			Reserve(Capacity * 2);
+		}
+
+		Data[Size++] = NewItem;
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	void PopBack()
+	{
+		Size--;
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	void Insert(const T& Item, const int Index)
+	{
+		if (Index >= 0 && Index <= Size)
+		{
+			// If the index is exactly after the Back item, we can just push it and get on with it
+			if (Index == Size)
+			{
+				PushBack(Item);
+				return;
+			}
+			// If this isn't the case, we can just start by pushing our last element back, this way we won't have to deal with more Reserves, and we would've done this anyway
+			PushBack(Back());
+			// Now it's time to copy every element that still needs to be moved
+			for (int i = Size - 2; i >= Index; i--)
+			{
+				Data[i + 1] = Data[i];
+			}
+
+			Data[Index] = Item;
+		}
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	void Erase(const int Index)
+	{
+		if (Index >= 0 && Index < Size)
+		{
+			for (int i = Index; i < Size - 1; i++)
+			{
+				Data[i] = Data[i + 1];
+			}
+
+			PopBack();
+		}
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	void Resize(const int NewSize)
+	{
+		if (NewSize <= Size)
+		{
+			Size = NewSize;
+			return;
+		}
+		else if (NewSize > Capacity)
+		{
+			Reserve(NewSize);
+		}
+
+		Size = NewSize;
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	void Append(const TDynamicArray<T>& Other)
+	{
+		Reserve(Size + Other.Size);
+
+		for (int i = 0; i < Other.Size; i++)
+		{
+			PushBack(Other[i]);
+		}
+	}
 };
