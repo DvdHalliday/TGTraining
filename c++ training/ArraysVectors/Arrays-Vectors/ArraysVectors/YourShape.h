@@ -2,6 +2,7 @@
 #include "Circle.h"
 #include "Square.h"
 #include <iostream>
+#include "DynamicArray.h"
 
 class FYourShapeApp 
 {
@@ -20,6 +21,9 @@ private:
 	void OpenAskForShapesBuiltInMenu();
 	void OpenAskForShapesStaticMenu();
 	void OpenAskForShapesDynamicMenu();
+
+	FShape* GetNewShape(const int ShapeIndex) const;
+	void DisplayShapes(FShape** ArrayPointer, int ArraySize) const;
 
 	bool IsInteger(const float Float) const;
 	bool IsInRange(const float Value, const int LowerBound, const int UpperBound) const;
