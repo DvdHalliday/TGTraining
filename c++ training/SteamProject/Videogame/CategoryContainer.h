@@ -6,10 +6,10 @@ class FCategoryContainer
 private:
 	const static int MaxCategoriesAmount = 30;
 	FCategory Categories[MaxCategoriesAmount];
-	int CurrentNumberOfCategories = 0; 
+	int CurrentNumberOfCategories;
 
 public:
-	FCategoryContainer() {}
+	FCategoryContainer();
 
 	bool IsFull() const;
 	bool IsEmpty() const;

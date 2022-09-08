@@ -5,18 +5,18 @@
 class FDate
 {
 private:
-	int Day = 1;
-	int Month = 1;
-	int Year = 2000;
+	int Day;
+	int Month;
+	int Year;
 public:
-	FDate() {}
+	FDate();
 	FDate(const int NewDay, const int NewMonth, const int NewYear);
 
 	void SetDate(const int Day, const int Month, const int Year);
 
-	const int& GetDay() const;
-	const int& GetMonth() const;
-	const int& GetYear() const;
+	int GetDay() const;
+	int GetMonth() const;
+	int GetYear() const;
 	bool IsValid() const;
 
 	std::string ToFormattedString() const;
