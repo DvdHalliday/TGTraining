@@ -23,7 +23,7 @@ private:
 	void OpenAskForShapesDynamicMenu();
 
 	FShape* GetNewShape(const int ShapeIndex) const;
-	void DisplayShapes(FShape** ArrayPointer, int ArraySize) const;
+	void DisplayShapes(FShape** ArrayPointer, const int ArraySize) const;
 
 	bool IsInteger(const float Float) const;
 	bool IsInRange(const float Value, const int LowerBound, const int UpperBound) const;

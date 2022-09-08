@@ -44,7 +44,6 @@ void FYourShapeApp::OpenAskForShapesBuiltInMenu()
 
 	int ShapesAmount = (int)GetValidatedInput(BuiltInMessage, 1, INT_MAX);
 
-
 	FShape** Shapes = new FShape * [ShapesAmount];
 
 	for (int i = 0; i < ShapesAmount; i++)
@@ -56,7 +55,7 @@ void FYourShapeApp::OpenAskForShapesBuiltInMenu()
 
 	ActiveCommand = EMenuCommand::MainMenu;
 
-	// Delete every heap shape we created
+	// Delete every heap-shape we created
 	for (int i = 0; i < ShapesAmount; i++)
 	{
 		delete Shapes[i];
@@ -85,7 +84,7 @@ void FYourShapeApp::OpenAskForShapesStaticMenu()
 	DisplayShapes(Shapes.GetData(), ShapesAmount);
 
 	ActiveCommand = EMenuCommand::MainMenu;
-	// Delete every heap shape we created
+	// Delete every heap-shape we created
 	for (int i = 0; i < ShapesAmount; i++)
 	{
 		delete Shapes[i];
@@ -103,9 +102,9 @@ void FYourShapeApp::OpenAskForShapesDynamicMenu()
 
 	enum class EDynamicMenuCommand { NewShape = 1, DisplayShapes, MainMenu };
 
-	EDynamicMenuCommand UserChoice = (EDynamicMenuCommand) 0;
+	EDynamicMenuCommand UserChoice;
 
-	while (UserChoice != EDynamicMenuCommand::MainMenu)
+	do
 	{
 		system("cls");
 
@@ -128,9 +127,9 @@ void FYourShapeApp::OpenAskForShapesDynamicMenu()
 			std::cout << "Dynamic Menu Error, please contact support";
 			break;
 		}
-	}
+	} while (UserChoice != EDynamicMenuCommand::MainMenu);
 
-	// Delete every heap shape we created
+	// Delete every heap-shape we created
 	for (int i = 0; i < Shapes.GetSize(); i++)
 	{
 		delete Shapes[i];
@@ -173,7 +172,7 @@ FShape* FYourShapeApp::GetNewShape(const int ShapeIndex) const
 	}
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void FYourShapeApp::DisplayShapes(FShape** ArrayPointer, int ArraySize) const
+void FYourShapeApp::DisplayShapes(FShape** ArrayPointer, const int ArraySize) const
 {
 	system("cls");
 
@@ -192,7 +191,8 @@ void FYourShapeApp::DisplayShapes(FShape** ArrayPointer, int ArraySize) const
 	for (int i = 0; i < ArraySize; i++)
 	{
 		FShape* ShapePointer = *(ArrayPointer + i);
-		std::cout << "Shape #" << i + 1 << " is a " << ShapePointer->GetShapeName() << std::endl << "Area: " << ShapePointer->GetArea() << std::endl << "Perimeter: " << ShapePointer->GetPerimeter() << std::endl << std::endl;
+		std::cout << "Shape #" << i + 1 << " is a " << ShapePointer->GetShapeName() << std::endl;
+		std::cout << "Area: " << ShapePointer->GetArea() << std::endl << "Perimeter: " << ShapePointer->GetPerimeter() << std::endl << std::endl;
 	}
 
 	std::cout << "Please hit enter to return to main menu ";

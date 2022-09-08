@@ -7,7 +7,7 @@ FSquare::FSquare(const float NewSideLength) : SideLength(NewSideLength)
 {
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-FSquare::FSquare(const FSquare& Other) : SideLength(SideLength)
+FSquare::FSquare(const FSquare& Other) : SideLength(Other.SideLength)
 {
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -26,7 +26,7 @@ const std::string& FSquare::GetShapeName() const
 	return ShapeName;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool FSquare::operator==(const FSquare& Other)
+bool FSquare::operator==(const FSquare& Other) const
 {
 	return SideLength == Other.SideLength;
 }

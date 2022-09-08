@@ -12,7 +12,7 @@ private:
 	void CopyData(int NewCapacity)
 	{
 		T* NewData = new T[NewCapacity];
-
+		// This condition should be okay since this is only called from Reserve and ShrinkToFit, both of which check that size is less than or equal to NewCapacity
 		for (int i = 0; i < Size; i++)
 		{
 			NewData[i] = Data[i];
@@ -29,7 +29,7 @@ public:
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	TDynamicArray() {}
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	TDynamicArray(const TDynamicArray<T>& Other) 
+	TDynamicArray(const TDynamicArray<T>& Other)
 	{
 		Append(Other);
 	}
@@ -134,7 +134,10 @@ public:
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	void PopBack()
 	{
-		Size--;
+		if (!IsEmpty())
+		{
+			Size--;
+		}
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	void Insert(const T& Item, const int Index)
@@ -201,7 +204,7 @@ public:
 	void Invert()
 	{
 		TDynamicArray TemporaryCopy(*this);
-		
+
 		for (int i = 0; i < Size; i++)
 		{
 			Data[i] = TemporaryCopy[Size - 1 - i];

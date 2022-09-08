@@ -17,5 +17,5 @@ public:
 	virtual float GetPerimeter() const override;
 	virtual const std::string& GetShapeName() const override;
 
-	bool operator==(const FSquare& Other);
+	bool operator==(const FSquare& Other) const;
 };
