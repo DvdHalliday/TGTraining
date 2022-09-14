@@ -27,10 +27,10 @@ public:
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	T& operator[](const int Index)
 	{
-		FNode CurrentNode = *Head;
-		for (int i = 0; i < Index - 1; i++)
+		FNode* CurrentNode = Head;
+		for (int i = 0; i < Index; i++)
 		{
-			CurrentNode = *(CurrentNode.Next);
+			CurrentNode = CurrentNode->Next;
 		}
 
 		return CurrentNode;
@@ -39,7 +39,7 @@ public:
 	const T& operator[](const int Index) const
 	{
 		FNode* CurrentNode = Head;
-		for (int i = 0; i < Index - 1; i++)
+		for (int i = 0; i < Index; i++)
 		{
 			CurrentNode = CurrentNode->Next;
 		}
@@ -75,5 +75,52 @@ public:
 	int GetSize() const
 	{
 		return Size;
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	void AddHead(const T& Value)
+	{
+		if (IsEmpty())
+		{
+			Head = new FNode(Value);
+			Tail = Head;
+
+			Size++;
+			return;
+		}
+
+		Head = new FNode(Value, Head);
+		Size++;
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	void AddTail(const T& Value)
+	{
+		if (IsEmpty())
+		{
+			AddHead(Value);
+			return;
+		}
+
+		Tail->Next = new FNode(Value);
+		Tail = Tail->Next;
+
+		Size++;
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	void Insert(const T& Value, const int Index)
+	{
+		if (Index < 0 || Index >= Size)
+		{
+			return;
+		}
+
+		if (Index == 0)
+		{
+			AddHead(Value);
+			return;
+		}
+		else
+		{
+			
+		}
 	}
 };
