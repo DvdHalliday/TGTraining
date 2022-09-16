@@ -4,18 +4,30 @@ template<typename T>
 class TSLList
 {
 private:
-	FNode* Head = nullptr;
-	FNode* Tail = nullptr;
-	int Size = 0;
-
 	struct FNode
 	{
 	public:
 		T Value;
 		FNode* Next;
 
-		FNode(const T& NewValue, const FNode* NewNext = nullptr) : Value(NewValue), Next(NewNext) {}
+		FNode(const T& NewValue, FNode* NewNext = nullptr) : Value(NewValue), Next(NewNext) {}
 	};
+	
+	FNode* Head = nullptr;
+	FNode* Tail = nullptr;
+	int Size = 0;
+
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	FNode& GetNodeAt(const int Index)
+	{
+		FNode* CurrentNode = Head;
+		for (int i = 0; i < Index; i++)
+		{
+			CurrentNode = CurrentNode->Next;
+		}
+
+		return *CurrentNode;
+	}
 
 public:
 	TSLList() {}
@@ -23,6 +35,15 @@ public:
 	{
 		Head = new FNode(Value);
 		Tail = Head;
+	}
+	TSLList(const TSLList<T>& Other)
+	{
+		FNode* CurrentNode = Other.Head;
+		for (int i = 0; i < Other.GetSize(); i++)
+		{
+			AddTail(CurrentNode->Value);
+			CurrentNode = CurrentNode->Next;
+		}
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	T& operator[](const int Index)
@@ -47,22 +68,22 @@ public:
 		return CurrentNode->Value;
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	T& Head()
+	T& GetHead()
 	{
 		return Head->Value;
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	const T& Head() const
+	const T& GetHead() const
 	{
 		return Head->Value;
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	T& Tail()
+	T& GetTail()
 	{
 		return Tail->Value;
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	const T& Tail() const
+	const T& GetTail() const
 	{
 		return Tail->Value;
 	}
@@ -120,7 +141,55 @@ public:
 		}
 		else
 		{
+			FNode& PreviousNode = GetNodeAt(Index - 1);
+			PreviousNode.Next = new FNode(Value, PreviousNode.Next);
+
+			Size++;
+		}
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	void Remove(const int Index)
+	{
+		if (Index < 0 || Index >= Size)
+		{
+			return;
+		}
+
+		if (Index == 0)
+		{
+			FNode* NodeToDeletePtr = Head;
+			Head = NodeToDeletePtr->Next;
+
+			delete NodeToDeletePtr;
+			NodeToDeletePtr = nullptr;
 			
+			if (Size == 1)
+			{
+				Tail = nullptr;
+			}
+		}
+		else
+		{
+			FNode PreviousNode = GetNodeAt(Index - 1);
+			FNode NodeToDelete = *PreviousNode.Next;
+
+			PreviousNode.Next = NodeToDelete.Next;
+
+			if (Index == Size - 1)
+			{
+				Tail = &PreviousNode;
+			}
+		}
+
+		Size--;
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	void Clear()
+	{	
+		int OriginalSize = Size;
+		for (int i = 0; i < OriginalSize; i++)
+		{
+			Remove(0);
 		}
 	}
 };
