@@ -12,6 +12,9 @@ public:
 	FDate() {}
 	FDate(const int NewDay, const int NewMonth, const int NewYear);
 
+	FDate(const FDate& Other);
+	~FDate() {};
+
 	void SetDate(const int Day, const int Month, const int Year);
 
 	const int& GetDay() const;

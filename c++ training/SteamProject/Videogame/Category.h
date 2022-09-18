@@ -1,7 +1,7 @@
 #pragma once
 #include "Videogame.h"
 
-class FCategory 
+class FCategory
 {
 private:
 	const static int MaxGamesAmount = 30;
@@ -13,10 +13,13 @@ public:
 	FCategory() {}
 	FCategory(const std::string NewName);
 
-	void AddGame(const FVideogame Videogame);
+	FCategory(const FCategory& Other);
+	~FCategory() {}
+
+	void AddGame(const FVideogame& Videogame);
 	bool IsFull() const;
 
-	std::string GetName() const;
-	FVideogame GetGame(const int Index) const;
+	const std::string& GetName() const;
+	bool GetGameAt(const int Index, FVideogame& OutVideogame) const;
 	int GetCurrentNumberOfGames() const;
 };

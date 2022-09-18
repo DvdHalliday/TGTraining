@@ -5,7 +5,12 @@ FCategory::FCategory(const std::string NewName) : Name(NewName)
 {
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void FCategory::AddGame(const FVideogame Videogame)
+FCategory::FCategory(const FCategory& Other) : Name(Other.Name), CurrentNumberOfGames(Other.CurrentNumberOfGames)
+{
+	memcpy_s(Games, sizeof Games, Other.Games, sizeof Other.Games);
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void FCategory::AddGame(const FVideogame& Videogame)
 {
 	if (!IsFull())
 	{
@@ -22,18 +27,19 @@ bool FCategory::IsFull() const
 	return CurrentNumberOfGames >= MaxGamesAmount;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-std::string FCategory::GetName() const
+const std::string& FCategory::GetName() const
 {
 	return Name;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-FVideogame FCategory::GetGame(const int Index) const
+bool FCategory::GetGameAt(const int Index, FVideogame& OutVideogame) const
 {
 	if (Index >= 0 && Index < CurrentNumberOfGames)
 	{
-		return Games[Index];
+		OutVideogame = Games[Index];
+		return true;
 	}
-	return FVideogame();
+	return false;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int FCategory::GetCurrentNumberOfGames() const
