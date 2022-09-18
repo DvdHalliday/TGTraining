@@ -5,6 +5,10 @@ FCategoryContainer::FCategoryContainer() : CurrentNumberOfCategories(0)
 {
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+FCategoryContainer::FCategoryContainer(const FCategoryContainer& Other) : CurrentNumberOfCategories(Other.CurrentNumberOfCategories)
+{
+	memcpy_s(Categories, sizeof Categories, Other.Categories, sizeof Other.Categories);
+}
 bool FCategoryContainer::IsFull() const
 {
 	return CurrentNumberOfCategories >= MaxCategoriesAmount;
@@ -15,7 +19,7 @@ bool FCategoryContainer::IsEmpty() const
 	return CurrentNumberOfCategories == 0;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool FCategoryContainer::AddCategory(const FCategory Category)
+bool FCategoryContainer::AddCategory(const FCategory& Category)
 {
 	if (!IsFull())
 	{
@@ -39,18 +43,19 @@ bool FCategoryContainer::RemoveCategory(const int Index)
 	return true;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-FCategory FCategoryContainer::GetCategory(const int Index) const
+bool FCategoryContainer::GetCategoryAt(const int Index, FCategory& OutCategory) const
 {
 	if (Index >= 0 && Index < CurrentNumberOfCategories)
 	{
-		return Categories[Index];
+		OutCategory = Categories[Index];
+		return true;
 	}
-	return FCategory();
+	return false;
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void FCategoryContainer::AddGameToCategory(const int CategoryIndex, const FVideogame Game)
+void FCategoryContainer::AddGameToCategory(const int CategoryIndex, const FVideogame& Game)
 {
-	if (CategoryIndex < 0 || CategoryIndex >= CurrentNumberOfCategories) 
+	if (CategoryIndex < 0 || CategoryIndex >= CurrentNumberOfCategories)
 	{
 		std::cout << "Index Out Of Bounds in AddGameToCategory Error, please contact support" << std::endl;
 		return;
