@@ -172,7 +172,7 @@ FShape* FYourShapeApp::GetNewShape(const int ShapeIndex) const
 	}
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void FYourShapeApp::DisplayShapes(FShape** ArrayPointer, const int ArraySize) const
+void FYourShapeApp::DisplayShapes(const FShape* const* const ArrayPointer, const int ArraySize) const
 {
 	system("cls");
 
@@ -190,7 +190,7 @@ void FYourShapeApp::DisplayShapes(FShape** ArrayPointer, const int ArraySize) co
 
 	for (int i = 0; i < ArraySize; i++)
 	{
-		FShape* ShapePointer = *(ArrayPointer + i);
+		const FShape* ShapePointer = *(ArrayPointer + i);
 		std::cout << "Shape #" << i + 1 << " is a " << ShapePointer->GetShapeName() << std::endl;
 		std::cout << "Area: " << ShapePointer->GetArea() << std::endl << "Perimeter: " << ShapePointer->GetPerimeter() << std::endl << std::endl;
 	}

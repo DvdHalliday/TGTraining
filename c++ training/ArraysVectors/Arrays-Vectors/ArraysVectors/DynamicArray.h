@@ -40,12 +40,12 @@ public:
 		Data = nullptr;
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	T& operator[](int Index)
+	T& operator[](const int Index)
 	{
 		return Data[Index];
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	const T& operator[](int Index) const
+	const T& operator[](const int Index) const
 	{
 		return Data[Index];
 	}
@@ -212,7 +212,7 @@ public:
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Finds the index of the first occurence of the object in the array, we get -1 in case the element wasn't found
-	int Find(T& Item) const
+	int Find(const T& Item) const
 	{
 		for (int i = 0; i < Size; i++)
 		{
@@ -226,7 +226,7 @@ public:
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Similar to last method, only this will return the last occurence and not the first one.
-	int FindLast(T& Item) const
+	int FindLast(const T& Item) const
 	{
 		for (int i = Size - 1; i >= 0; i++)
 		{

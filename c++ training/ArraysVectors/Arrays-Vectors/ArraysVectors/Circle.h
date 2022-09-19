@@ -5,7 +5,6 @@ class FCircle : public FShape
 {
 private:
 	float Radius = 1.f;
-	const static std::string ShapeName;
 
 public:
 	FCircle() {}
@@ -14,7 +13,7 @@ public:
 
 	virtual float GetArea() const override;
 	virtual float GetPerimeter() const override;
-	virtual const std::string& GetShapeName() const override;
+	virtual const std::string GetShapeName() const override;
 
 	bool operator==(const FCircle& Other) const;
 };
