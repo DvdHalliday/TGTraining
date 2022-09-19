@@ -9,6 +9,10 @@ FDate::FDate(const int NewDay, const int NewMonth, const int NewYear) : Day(NewD
 {
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+FDate::FDate(const FDate& Other) : Day(Other.Day), Month(Other.Month), Year(Other.Year)
+{
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void FDate::SetDate(const int NewDay, const int NewMonth, const int NewYear)
 {
 	Day = NewDay;
