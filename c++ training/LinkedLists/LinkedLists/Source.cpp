@@ -4,9 +4,10 @@
 #include <iostream>
 #include <string>
 #include "SinglyLinkedList.h"
+#include "DoublyLinkedList.h"
 
 template<typename T>
-void PrintList(TSLList<T>& List)
+void PrintList(TDLList<T>& List)
 {
 	std::cout << "Size: " << List.GetSize() << "\t\tList Contents: { ";
 	for (const T& Element : List)
@@ -17,13 +18,13 @@ void PrintList(TSLList<T>& List)
 }
 
 template<typename T>
-void PrintHead(const TSLList<T>& List, const std::string& CorrectHead)
+void PrintHead(const TDLList<T>& List, const std::string& CorrectHead)
 {
 	std::cout << "Head is:\t" << List.GetHead() << (List.GetHead() == CorrectHead ? " CORRECT" : " INCORRECT") << std::endl;
 }
 
 template<typename T>
-void PrintTail(const TSLList<T>& List, const std::string& CorrectTail)
+void PrintTail(const TDLList<T>& List, const std::string& CorrectTail)
 {
 	std::cout << "Tail is:\t" << List.GetTail() << (List.GetTail() == CorrectTail ? " CORRECT" : " INCORRECT") << std::endl;
 }
@@ -42,7 +43,7 @@ int main()
 	std::cout << "*******************************************************************************\n\n";
 
 	// Definitions
-	TSLList<std::string> List;
+	TDLList<std::string> List;
 
 	// Test 1
 	std::cout << "\n*** Test 1 ***\n";
@@ -145,7 +146,7 @@ int main()
 	List.AddTail("List");
 
 	std::cout << "Using Copy Constructor...\n";
-	TSLList<std::string> Other = List;
+	TDLList<std::string> Other = List;
 	PrintList(List);
 	PrintList(Other);
 
@@ -162,12 +163,12 @@ int main()
 	Other = List;
 	PrintList(Other);
 
-	TSLList<std::string>* ListPointer = new TSLList<std::string>;
+	TDLList<std::string>* ListPointer = new TDLList<std::string>;
 	ListPointer->AddTail("Test");
 	ListPointer->AddTail("Pointer");
 	ListPointer->AddTail("Contents");
 
-	TSLList<std::string> SomeList(*ListPointer);
+	TDLList<std::string> SomeList(*ListPointer);
 	delete ListPointer;
 	ListPointer = nullptr;
 
