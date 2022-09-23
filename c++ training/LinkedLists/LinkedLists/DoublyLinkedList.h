@@ -71,12 +71,12 @@ public:
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	T& operator[](const int Index)
 	{
-		return GetNodeAt(Index)->Data;
+		return GetNodeAt(Index).Data;
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	const T& operator[](const int Index) const
 	{
-		return GetNodeAt(Index)->Data;
+		return GetNodeAt(Index).Data;
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	T& GetHead()
@@ -155,8 +155,8 @@ public:
 		else
 		{
 			FNode& PreviousNode = GetNodeAt(Index - 1);
-			FNode* Current = PreviousNode.Next;
-			PreviousNode.Next = new FNode(Data, Current, &PreviousNode);
+			FNode* CurrentPtr = PreviousNode.Next;
+			PreviousNode.Next = new FNode(Data, CurrentPtr, &PreviousNode);
 
 			if (Index == Size)
 			{
@@ -164,7 +164,7 @@ public:
 			}
 			else
 			{
-				Current->Previous = PreviousNode.Next;
+				CurrentPtr->Previous = PreviousNode.Next;
 			}
 
 			Size++;
@@ -262,5 +262,62 @@ public:
 	FIterator end() const
 	{
 		return FIterator(nullptr);
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	template<typename Pred>
+	void ForEach(const Pred& Predicate)
+	{
+		for (T& Item : *this)
+		{
+			Predicate(Item);
+		}
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	template<typename Pred>
+	T* FindByPredicate(const Pred& Predicate) const
+	{
+		for (T& Item : *this)
+		{
+			if (Predicate(Item))
+			{
+				return &Item;
+			}
+		}
+
+		return nullptr;
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	template<typename Pred>
+	TSLList<T> FilterByPredicate(const Pred& Predicate) const
+	{
+		TSLList<T> NewList;
+
+		for (T& Item : *this)
+		{
+			if (Predicate(Item))
+			{
+				NewList.AddTail(Item);
+			}
+		}
+
+		return NewList;
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	template<typename Pred>
+	void RemoveAllByPredicate(const Pred& Predicate)
+	{
+		FNode* CurrentNode = Head;
+		for (int i = 0; i < Size; i++)
+		{
+			if (Predicate(CurrentNode->Value))
+			{
+				CurrentNode = CurrentNode->Next;
+				Remove(i--);
+			}
+			else
+			{
+				CurrentNode = CurrentNode->Next;
+			}
+		}
 	}
 };

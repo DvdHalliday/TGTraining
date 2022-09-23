@@ -303,8 +303,7 @@ public:
 			if (Predicate(CurrentNode->Value))
 			{
 				CurrentNode = CurrentNode->Next;
-				Remove(i);
-				i--;
+				Remove(i--);
 			}
 			else
 			{
