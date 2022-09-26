@@ -12,7 +12,7 @@ private:
 		FNode* Next;
 		FNode* Previous;
 
-		FNode(const T& NewData, FNode* NewNext = nullptr, FNode* NewPrevious = nullptr) : Data(NewData), Next(NewNext), Previous(NewPrevious) {}
+		FNode(const T& NewData, FNode* NewPrevious = nullptr, FNode* NewNext = nullptr) : Data(NewData), Next(NewNext), Previous(NewPrevious) {}
 	};
 
 	FNode* Head = nullptr;
@@ -22,9 +22,11 @@ private:
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	FNode& GetNodeAt(const int Index) const
 	{
+		FNode* CurrentNode;
+
 		if (Index < Size / 2)
 		{
-			FNode* CurrentNode = Head;
+			CurrentNode = Head;
 			for (int i = 0; i < Index; i++)
 			{
 				CurrentNode = CurrentNode->Next;
@@ -33,7 +35,7 @@ private:
 			return *CurrentNode;
 		}
 
-		FNode* CurrentNode = Tail;
+		CurrentNode = Tail;
 		for (int i = Size - 1; i > Index; i--)
 		{
 			CurrentNode = CurrentNode->Previous;
@@ -41,6 +43,7 @@ private:
 
 		return *CurrentNode;
 	}
+
 public:
 	TDLList() {}
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -120,7 +123,7 @@ public:
 			return;
 		}
 
-		Head->Previous = new FNode(Data, Head);
+		Head->Previous = new FNode(Data, nullptr, Head);
 		Head = Head->Previous;
 
 		Size++;
@@ -134,7 +137,7 @@ public:
 			return;
 		}
 
-		Tail->Next = new FNode(Data, nullptr, Tail);
+		Tail->Next = new FNode(Data, Tail);
 		Tail = Tail->Next;
 
 		Size++;
@@ -156,7 +159,7 @@ public:
 		{
 			FNode& PreviousNode = GetNodeAt(Index - 1);
 			FNode* CurrentPtr = PreviousNode.Next;
-			PreviousNode.Next = new FNode(Data, CurrentPtr, &PreviousNode);
+			PreviousNode.Next = new FNode(Data, &PreviousNode, CurrentPtr);
 
 			if (Index == Size)
 			{
