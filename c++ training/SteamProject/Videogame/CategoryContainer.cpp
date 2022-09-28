@@ -9,7 +9,6 @@ FCategoryContainer::FCategoryContainer(const FCategoryContainer& Other) : Curren
 {
 	memcpy_s(Categories, sizeof Categories, Other.Categories, sizeof Other.Categories);
 }
-//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool FCategoryContainer::IsFull() const
 {
 	return CurrentNumberOfCategories >= MaxCategoriesAmount;

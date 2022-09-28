@@ -20,7 +20,7 @@ private:
 		Exit
 	};
 	EMenuCommand ActiveCommand = EMenuCommand::MainMenu;
-
+  
 	void OpenMainMenu();
 	void OpenAddGamesMenu();
 	void OpenCategoryManagerMenu();
