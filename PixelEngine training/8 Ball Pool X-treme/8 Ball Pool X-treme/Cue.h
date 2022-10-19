@@ -25,6 +25,8 @@ public:
     
     float GetAngle() const;
 
+    olc::vf2d GetDirection() const;
+
     float GetDistance() const;
 
     bool IsActive() const;

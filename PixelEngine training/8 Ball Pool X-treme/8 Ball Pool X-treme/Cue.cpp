@@ -20,7 +20,7 @@ void FCue::SetAngle(const float NewAngle)
 
 void FCue::SetDistance(const float NewDistance)
 {
-    if (NewDistance > TargetBall->GetRadius())
+    if (NewDistance > TargetBall->GetRadius() + 9 && NewDistance < 150.f)
     {
         Distance = NewDistance;
     }
@@ -34,6 +34,11 @@ void FCue::SetActiveState(const bool bNewIsActive)
 float FCue::GetAngle() const
 {
     return Angle;
+}
+
+olc::vf2d FCue::GetDirection() const
+{
+    return olc::vf2d{sinf(Angle),-cosf(Angle)};
 }
 
 float FCue::GetDistance() const

@@ -1,25 +1,28 @@
 ﻿#pragma once
 #include "Cue.h"
 
+class FEightBallPool;
+
 class FPlayer
 {
+public:
+    enum class EBallType {Striped = 0, Solid};
+    
 private:
     int Score;
-    const FCue* Cue;
-
-    enum class EBallType {Striped = 0, Solid};
+    FCue* Cue;
 
     const EBallType BallType;
     
 public:
-    FPlayer(const EBallType NewBallType, const FBall& CueBall);
+    FPlayer(const EBallType NewBallType, const FBall* CueBall);
 
     void SetScore(const int NewScore);
     void AddScore(const int OtherScore);
     
-    void Strike();
+    void Strike(FEightBallPool* Game);
 
-    const FCue& GetCue() const;
+    FCue& GetCue();
 
     void SetCueValues(const float MouseX, const float MouseY);    
 };
