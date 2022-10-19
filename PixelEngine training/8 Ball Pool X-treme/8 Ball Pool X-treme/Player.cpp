@@ -1,6 +1,6 @@
 ﻿#include "Player.h"
 
-FPlayer::FPlayer(const EBallType NewBallType, const FBall& CueBall) : BallType(NewBallType)
+FPlayer::FPlayer(const EBallType NewBallType, const FBall& CueBall) : Score(0), BallType(NewBallType)
 {
     Cue = new FCue(CueBall);
 }

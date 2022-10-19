@@ -139,6 +139,7 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\BallOne.png" />
     <Content Include="Images\CueBall.png" />
     <Content Include="Images\Table.png" />
   </ItemGroup>

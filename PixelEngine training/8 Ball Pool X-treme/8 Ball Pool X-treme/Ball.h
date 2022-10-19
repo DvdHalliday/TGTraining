@@ -9,19 +9,31 @@ private:
 	olc::vf2d Acceleration = { 0.f,0.f };
 
 	const int Number = 1;
-	const olc::Pixel Color = olc::WHITE;
 
 	bool bIsActive = true;
 
+	olc::Decal* Decal = nullptr;
+
 public:
-	FBall(const olc::vf2d& NewPosition, const int NewNumber = 1, const olc::Pixel NewColor = olc::WHITE) : Position(NewPosition),
-		Number(NewNumber), Color(NewColor) {}
+	FBall(const int NewNumber = 1) :  Number(NewNumber) {}
+
+	~FBall();
 
 	void SetPosition(const float X, const float Y);
 
+	void SetPosition(const olc::vf2d& NewPosition);
+	
 	void SetVelocity(const float X, const float Y);
 
+	void SetVelocity(const olc::vf2d& NewVelocity);
+
 	void SetActiveState(const bool bNewIsActive);
+
+	void SetDecal(olc::Sprite* NewSprite);
+
+	void AddPosition(const olc::vf2d& OtherPosition);
+	
+	void AddVelocity(const olc::vf2d& OtherVelocity);
 
 	const olc::vf2d& GetPosition() const;
 
@@ -29,7 +41,7 @@ public:
 
 	int GetNumber() const;
 
-	const olc::Pixel& GetColor() const;
+	olc::Decal* GetDecal() const;
 
 	float GetRadius() const;
 
