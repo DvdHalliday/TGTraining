@@ -213,7 +213,20 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\BallEleven.png" />
+    <Content Include="Images\BallFifteen.png" />
+    <Content Include="Images\BallFive.png" />
+    <Content Include="Images\BallFour.png" />
+    <Content Include="Images\BallFourteen.png" />
+    <Content Include="Images\BallNine.png" />
     <Content Include="Images\BallOne.png" />
+    <Content Include="Images\BallSeven.png" />
+    <Content Include="Images\BallSix.png" />
+    <Content Include="Images\BallTen.png" />
+    <Content Include="Images\BallThirteen.png" />
+    <Content Include="Images\BallThree.png" />
+    <Content Include="Images\BallTwelve.png" />
+    <Content Include="Images\BallTwo.png" />
     <Content Include="Images\Cue.png" />
     <Content Include="Images\CueBall.png" />
     <Content Include="Images\Table.png" />

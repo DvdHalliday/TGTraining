@@ -24,5 +24,9 @@ public:
 
     FCue& GetCue();
 
+    int GetScore() const;
+
+    FPlayer::EBallType GetBallType() const;
+
     void SetCueValues(const float MouseX, const float MouseY);    
 };

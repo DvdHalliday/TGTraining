@@ -10,8 +10,6 @@ private:
     // The next distance represents the distance to the target ball circumference
     float Distance;
 
-    bool bIsActive = false;
-
 public:
     FCue(const FBall& NewBall);
 
@@ -28,6 +26,4 @@ public:
     olc::vf2d GetDirection() const;
 
     float GetDistance() const;
-
-    bool IsActive() const;
 };
