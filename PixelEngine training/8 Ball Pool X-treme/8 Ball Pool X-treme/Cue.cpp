@@ -20,9 +20,13 @@ void FCue::SetAngle(const float NewAngle)
 //----------------------------------------------------------------------------------------------------------------------
 void FCue::SetDistance(const float NewDistance)
 {
-    if (NewDistance > TargetBall->GetRadius() + 9 && NewDistance < 150.f)
+    if (NewDistance > TargetBall->GetRadius() + 9.f && NewDistance < 150.f)
     {
         Distance = NewDistance;
+    }
+    if (NewDistance > 150.f)
+    {
+        Distance = 150.f;
     }
 }
 //----------------------------------------------------------------------------------------------------------------------
