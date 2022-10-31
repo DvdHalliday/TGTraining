@@ -101,8 +101,12 @@
     <ResourceCompile Include="resources.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="data-files\scene\whiteCube.Scene.Any" />
     <None Include="data-files\test.Scene.Any" />
     <None Include="journal\journal.md.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="data-files\scene\whiteCube.Scene.Any" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

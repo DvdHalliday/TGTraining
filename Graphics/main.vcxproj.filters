@@ -18,6 +18,9 @@
       <Filter>Scene Files</Filter>
     </None>
     <None Include="journal\journal.md.html" />
+    <None Include="data-files\scene\whiteCube.Scene.Any">
+      <Filter>Scene Files\scene</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -35,6 +38,9 @@
     <Filter Include="Scene Files">
       <UniqueIdentifier>{f7819c7b-69f2-4778-bec8-4dbee2bfa711}</UniqueIdentifier>
       <Extensions>*.any</Extensions>
+    </Filter>
+    <Filter Include="Scene Files\scene">
+      <UniqueIdentifier>{32fa7075-c350-40b4-a4fa-c30037886acf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

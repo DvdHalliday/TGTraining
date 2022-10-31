@@ -1,4 +1,4 @@
-/* -*- c++ -*- */
+﻿// -*- c++ -*-
 {
     name = "White Cube";
 
@@ -6,7 +6,7 @@
         cubeModel = ArticulatedModel::Specification {
             filename = "model/cube/cube.obj";
             preprocess = {
-                setMaterial(all(), Color3(1, 1, 1));
+                setMaterial(all(), Color3(1, 1, 0));
             };
         };
     };

@@ -1,13 +1,13 @@
 Application Log
-Start: Mon Oct 31 09:16:20 2022
+Start: Mon Oct 31 16:51:22 2022
 
 WARNING: AudioDevice is not enabled. Set G3DSpecification::audio = true before invoking initGLG3D() to enable audio.
-Initializing System::findDataFile took 0.003028s
+Initializing System::findDataFile took 0.002296s
 
 Entering GApp::GApp()
 cwd = D:\GitHub\TGTraining\Graphics\data-files
 System::setAppDataDir("D:\GitHub\TGTraining\Graphics\data-files")
-System::setAppDataDirs()Initializing System::findDataFile took 0.001733s
+System::setAppDataDirs()Initializing System::findDataFile took 0.001422s
 Setting video mode
 wglSwapIntervalEXT(0);
 Setting initial rendering state.
@@ -603,7 +603,9 @@ Done GApp::loadFont(...)
 Done GApp::GApp()
 
 Found scenes:
-  "Test Scene" (D:\GitHub\TGTraining\Graphics\data-files/test.Scene.Any)
+  <Parse error at D:\GitHub\TGTraining\Graphics\data-files/scene/whiteCube.Scene.Any:1(1): Unrecognized token type beginning with character '»' (ASCII 187)>
+  "White Cube" (D:\GitHub\TGTraining\Graphics\data-files/test.Scene.Any)
+  <Parse error at D:\GitHub\TGTraining\Graphics\data-files/./scene/whiteCube.Scene.Any:1(1): Unrecognized token type beginning with character '»' (ASCII 187)>
   "G3D Debug Animation (Skeletal)" (D:\g3d\data10\common/scene/G3D_Debug_Animation_(Skeletal).Scene.Any)
   "G3D Debug Area Light (Glossy)" (D:\g3d\data10\common/scene/G3D_Debug_Area_Light_(Glossy).Scene.Any)
   "G3D Debug Area Light (Matte)" (D:\g3d\data10\common/scene/G3D_Debug_Area_Light_(Matte).Scene.Any)
@@ -674,7 +676,9 @@ Found scenes:
   "G3D Beta Squadron" (D:\g3d\data10\game/scene/beta.Scene.Any)
   "G3D AR Mountain" (D:\g3d\data10\game/scene/G3D_AR_Mountain/G3D_AR_Mountain.Scene.Any)
 Found scenes:
-  "Test Scene" (D:\GitHub\TGTraining\Graphics\data-files/test.Scene.Any)
+  <Parse error at D:\GitHub\TGTraining\Graphics\data-files/scene/whiteCube.Scene.Any:1(1): Unrecognized token type beginning with character '»' (ASCII 187)>
+  "White Cube" (D:\GitHub\TGTraining\Graphics\data-files/test.Scene.Any)
+  <Parse error at D:\GitHub\TGTraining\Graphics\data-files/./scene/whiteCube.Scene.Any:1(1): Unrecognized token type beginning with character '»' (ASCII 187)>
   "G3D Debug Animation (Skeletal)" (D:\g3d\data10\common/scene/G3D_Debug_Animation_(Skeletal).Scene.Any)
   "G3D Debug Area Light (Glossy)" (D:\g3d\data10\common/scene/G3D_Debug_Area_Light_(Glossy).Scene.Any)
   "G3D Debug Area Light (Matte)" (D:\g3d\data10\common/scene/G3D_Debug_Area_Light_(Matte).Scene.Any)
@@ -771,6 +775,11 @@ Vertex info
 
 
 
+
+
+
+
+
 _____________________________________________________
 
     ###    Files Used    ###
@@ -791,6 +800,7 @@ swscale-5.dll
 fmod64.dll
 D:/GitHub/TGTraining/Graphics/data-files/icon.png
 D:/GitHub/TGTraining/Graphics/data-files/log.txt
+D:/GitHub/TGTraining/Graphics/data-files/test.Scene.Any
 D:/g3d/G3D10/data-files/font/arial.fnt
 D:/g3d/G3D10/data-files/font/console-small.fnt
 D:/g3d/G3D10/data-files/font/greek.fnt
@@ -858,8 +868,17 @@ D:/g3d/data10/common/cubemap/cornellbox/empty-RG-NZ.png
 D:/g3d/data10/common/cubemap/cornellbox/empty-RG-PX.png
 D:/g3d/data10/common/cubemap/cornellbox/empty-RG-PY.png
 D:/g3d/data10/common/cubemap/cornellbox/empty-RG-PZ.png
+D:/g3d/data10/common/cubemap/whiteroom/whiteroom-NX.png
+D:/g3d/data10/common/cubemap/whiteroom/whiteroom-NY.png
+D:/g3d/data10/common/cubemap/whiteroom/whiteroom-NZ.png
+D:/g3d/data10/common/cubemap/whiteroom/whiteroom-PX.png
+D:/g3d/data10/common/cubemap/whiteroom/whiteroom-PY.png
+D:/g3d/data10/common/cubemap/whiteroom/whiteroom-PZ.png
 D:/g3d/data10/common/model/CornellBox/CornellBox.zip
 D:/g3d/data10/common/model/CornellBox/CornellBox.zip/CornellBox-Original.mtl
 D:/g3d/data10/common/model/CornellBox/CornellBox.zip/CornellBox-Original.obj
+D:/g3d/data10/common/model/cube/cube.obj
+D:/g3d/data10/common/model/cube/default.mtl
+D:/g3d/data10/common/model/cube/default.png
 D:/g3d/data10/common/scene/G3D_Simple_Cornell_Box_(Area_Light).Scene.Any
 
