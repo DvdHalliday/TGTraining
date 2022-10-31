@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 {
-    name = "White Cube";
+    name = "Whitee Cube";
 
     models = {
         cubeModel = ArticulatedModel::Specification {
