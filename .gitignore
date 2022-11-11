@@ -122,6 +122,14 @@ ipch/
 *.vspx
 *.sap
 
+# Graphics Codex say so
+x64
+build
+*.db
+*.opendb
+data-files\log.txt
+data-files\g3d-license.txt
+
 # Visual Studio Trace Files
 *.e2e
 
